@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.aptech.dao.IemailDao">
+    	<select id="queryInbox" resultMap="inbox">
+			SELECT * FROM `email` WHERE `inbox_eid`=#{eid} AND `box_status`=1 and `remove_status`=0
+			<if test="inboxid!=null">
+				and box_id=#{inboxid}
+			</if>
+			<if test="zt!=null">
+			and `topic`=#{zt}
+			</if>
+			<if test="inboxname!=null">
+			and `outbox_name` = #{inboxname}
+			</if>
+			<if test="beginTime!=null" >
+				and createTime&gt;=#{beginTime}
+			</if>
+			<if test="endTime!=null">
+			and createTime&lt;=#{endTime}
+			</if>
+			
+    	</select>
+    	
+    	<resultMap id="inbox" type="inbox">
+    		<id column="box_id" property="boxId"/>
+    		<result column="content" property="content"/>
+    		<result column="createTime" property="createTime"/>
+    		<result column="read_status" property="readstatus"/>
+    		<result column="remove_status" property="removestatus"/>
+    		<result column="receipt_status" property="receiptstatus"/>
+    		<result column="inbox_eid" property="inboxeid"/>
+    		<result column="outbox_eid" property="outboxeid"/>
+    		<result column="draft_status" property="draftstatus"/>
+    		<result column="outbox_name" property="outboxname"/>
+    		<result column="inbox_name" property="inboxname"/>
+    		<result column="box_status" property="boxstatus"/>
+    	</resultMap>
+    	
+    	
+    	
+    	
+    	
+    	
+    	<select id="queryoutbox" resultMap="inbox">
+			SELECT * FROM `email` WHERE `outbox_eid`=#{eid} AND `box_status`=2 and `remove_status`=0
+
+			<if test="outboxid!=null">
+				and box_id=#{outboxid}
+			</if>
+			<if test="zt!=null">
+			and `topic`=#{zt}
+			</if>
+			<if test="outboxname!=null">
+			and `outbox_name` like '%#{outboxname}%'
+			</if>
+			<if test="beginTime!=null" >
+				and createTime&gt;=#{beginTime}
+			</if>
+			<if test="endTime!=null">
+			and createTime&lt;=#{endTime}
+			</if>
+			<if test="draftstatus!=null">
+			and draft_status =#{draftstatus}
+			</if>
+			
+    	</select>
+    	
+    	<select id="queryremove" resultMap="inbox">
+			SELECT * FROM `email` WHERE `outbox_eid`=#{eid} and remove_status=#{removestatus}
+
+			<if test="outboxid!=null">
+				and box_id=#{outboxid}
+			</if>
+			<if test="zt!=null">
+			and `topic`=#{zt}
+			</if>
+			<if test="outboxname!=null">
+			and `outbox_name` like '%#{outboxname}%'
+			</if>
+			<if test="inboxname!=null">
+			and `inbox_name` like '%#{inboxname}%'
+			</if>
+			<if test="beginTime!=null" >
+				and createTime&gt;=#{beginTime}
+			</if>
+			<if test="endTime!=null">
+			and createTime&lt;=#{endTime}
+			</if>
+			
+    	</select>
+    	<insert id="insertaccbox">
+    	INSERT INTO `accessorybox` VALUE(0,#{path});
+    	</insert>
+
+	<update id="updatepath">
+	UPDATE `accessorybox` SET `email_id`=#{emailid} WHERE `aid`=#{aid}
+	</update>
+    	
+    	
+    	
+    	
+    	
+    	<select id="queryaccessorybox" resultType="accessorybox">
+    		select * from `accessorybox` 
+    		<where>
+    			<if test="inboxid!=null">
+    			and email_id=#{inboxid}
+    			</if>
+    		</where>
+    	</select>
+    	<insert id="insertoutbox" parameterType="inbox">
+    	INSERT  INTO `email`(`content`,`topic`,`createTime`,`read_status`,`remove_status`,`receipt_status`,`inbox_eid`,`outbox_eid`,`draft_status`,`inbox_name`,`outbox_name`,`box_status`) VALUES 
+(#{content},#{topic},now(),2,#{removestatus},#{receiptstatus},#{inboxeid},#{outboxeid},#{draftstatus},#{inboxname},#{outboxname},2);
+    	
+    	</insert>
+    	<insert id="insertinbox" parameterType="inbox">
+INSERT  INTO `email`(`content`,`topic`,`createTime`,`read_status`,`remove_status`,`receipt_status`,`inbox_eid`,`outbox_eid`,`draft_status`,`inbox_name`,`outbox_name`,`box_status`) VALUES 
+(#{content},#{topic},now(),1,#{removestatus},#{receiptstatus},#{inboxeid},#{outboxeid},#{draftstatus},#{inboxname},#{outboxname},1);
+    	</insert>
+    	<insert id="insertaccessorybox">
+    		
+    	</insert>
+    	
+    	
+    	
+    	<update id="updateboxdelete">
+    		update `email` set `remove_status`=#{removeid} where `box_id`=#{outboxid}
+    	</update>
+    	
+    	
+    	<update id="updateinread">
+    		update `email` set `read_status`=#{readstatus} where `box_id`=#{inboxid}
+    	</update>
+    	
+    	<delete id="boxdelete">
+    		delete from  `email`  where `box_id`=#{outboxid}
+    	</delete>
+    	
+    </mapper>

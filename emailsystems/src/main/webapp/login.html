@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>登录页面</title>
+		
+		<style>
+			body{
+				margin: 0px;
+				padding: 0px;
+				background: url(img/2016113011512689132744766.jpg) top no-repeat;
+				background-size: cover;
+				
+			}
+			#log{
+				width: 20%;
+				
+				position: fixed;
+				top: 200px;
+				right: 200px;
+			}
+		</style>
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	</head>
+	<body>
+          <!--  <div class="col-md-4 img-rounded"style="background: rgba(128,158,194,0.6);" id="log">
+                <div style="padding: 20px 0 20px; text-align: center;"><img src="img/noliving.gif"></div>
+                <table>
+                	<tr>
+                		<td><span class="glyphicon glyphicon-user"></span><input type="text" class="form-control"/></td>
+                		<td colspan="2"><input type="button" value="登录" class="form-control btn btn-primary"/></td>
+                	</tr>
+                	<tr>
+                		<td><span class="glyphicon glyphicon-lock"></span><input type="text" class="form-control"/></td>
+                	</tr>
+                </table>
+              
+		</div>-->
+		<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-4 img-rounded"style="background: rgba(128,158,194,0.6);margin-top: 100px;padding: 30px;">
+                <div style="padding: 20px 0 20px; text-align: center;"><img src="img/noliving.gif"></div>
+                <form>
+                    <div class="row form-group form-horizontal">
+                        <div class="col-md-12">
+                        	<span class="glyphicon glyphicon-user" ></span> 
+                            <input type="text" id="eid" value="" class="form-control"/>
+                        </div>
+                    </div>
+                   
+                    <div class="row form-group form-horizontal">
+                        
+                        <div class="col-md-12">
+                        	<span class="glyphicon glyphicon-lock" ></span> 
+                            <input type="password" id="epwd" value="" class="form-control"/>
+                        </div>
+                    </div>
+                   
+
+                        <div class="row form-group  form-horizontal">
+                        <div class="col-md-12">
+                            <label id="dlu" class="btn btn-primary form-control">登录</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+	</body>
+	<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="js/superDialog.js"></script>
+	<script>
+		$(function(){
+		//用户名验证
+		
+		
+		
+	/*
+	*执行登录
+	*/
+	$("#dlu").click(function(){	
+		//alert(1212);
+		var eid=$("#eid").val();
+		var epwd=$("#epwd").val();
+		if(epwd==""){
+			showAlertDialog("密码不能为空！");
+			return;
+		}
+		if(eid==""){
+			showAlertDialog("用户名不能为空！");
+			return;
+		}
+		alert(eid+""+epwd);
+		$.ajax({
+			type:"get",
+			url:"/emailsystems/user/login",
+			data:{
+				name:eid,
+				pwd:epwd
+			},
+			success:function (data) {
+			if(data==1){				
+				alert("你已成功登陆！");
+				location.href="index.html";
+			}else{
+				showAlertDialog("登陆失败！");
+			}
+		},
+		error:function(){
+			console.log("用户数据调用失败！");
+		},
+		timeout:5000
+		});
+
+	});
+	
+	
+	})
+	</script>
+	
+</html>

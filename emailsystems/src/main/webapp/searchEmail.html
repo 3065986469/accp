@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>搜索邮件</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+	</head>
+	<body>
+		<div class="container">
+			<form>
+			<div class="row">
+				<div class="col-md-3">
+					<input type="text" class="form-control" id="titlef" placeholder="主题" >
+				</div>
+			<div class="col-md-3">
+			<select  class="form-control" id="areaf">
+				<option value="">范围选择（默认全部）</option>
+				<option value="发件">发件箱</option>
+				<option value="收件">收件箱</option>
+				<option value="草稿">草稿箱</option>
+				<option value="废件">废件箱</option>
+			</select>
+			</div>
+		
+			<div class="col-md-3">
+			<input type="text" class="form-control" id="outpf" placeholder="发件人" >
+			</div>
+			<div class="col-md-3">
+			<input type="text" class="form-control" id="inpf" placeholder="收件人" >
+			</div>
+			</div>
+			<br />
+			<div class="row">
+			<div class="col-md-12">
+				<span>发送时间： <input type="datetime-local" id="startDate" class="form-control" style="width: 25%;display: inline-block;" value="1970-01-01T00:00" /> 至 <input type="datetime-local" class="form-control"  style="width: 25%;display: inline-block;" value="2099-01-01T00:00"   id="endDate"/></span>
+				<button type="button" class="btn btn-success" id="search">搜索</button> &nbsp;
+				<button type="reset" class="btn btn-primary">清除</button> 
+			</div>
+			</div>
+		<br>
+			<div class="row">
+				<div class="table-responsive">
+					<table class="table table-bordered table-striped table-hover">
+						<thead>
+							<tr>
+								<th>邮件归属</th>
+								<th>发件人</th>
+								<th>收件人</th>
+								<th>主题</th>
+								<th>发送时间</th>
+							</tr>
+						</thead>
+						<tbody id="list5">
+						
+						</tbody>
+						<tfoot>
+								<tr>
+									<td colspan="5">
+										<ul class="pager">
+											<li>
+												<a href="javascript:void(0)">首页</a>
+											</li>
+											<li class="abled">
+												<a href="javascript:void(0)">上一页</a>
+											</li>
+											<li class="abled">
+												<a href="javascript:void(0)">下一页</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">末页</a>
+											</li>
+											<li class="disabled">
+												<a href="javascript:void(0)" style="margin-left: 50px;">第<b id="num"></b>页/ 共<b id="pages"></b>页  &nbsp; &nbsp;  共<b id="size"></b>条记录</a>
+											</li>
+										</ul>
+									</td>
+								</tr>
+							</tfoot>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+			<script type="text/javascript" src="js/superDialog.js"></script>
+	<script>	
+			var pd;
+			var topic="";
+			var incon="";
+			var outcon="";
+			var boxstatus=""
+			var startDate=$("#startDate").val();
+			var endDate=$("#endDate").val();
+			//ajax全局设置
+			  $.ajaxSetup({
+			  	timeout:5000
+			  });
+			  $(document).ajaxError(function(){
+				  contentType:"charset=UTF-8"
+			  });	
+		function goToPage(n,s,topic,incon,outcon,boxstatus,startDate,endDate) {
+			$.getJSON("/emailsys/sys/queryBoxList","pcur="+n+"&psize="+s+"&topic="+topic+"&inbox_name="+incon+"&outbox_name="+outcon+"&status="+boxstatus+"&startDate="+startDate+"&endDate="+endDate+"", function(data) {
+				if(data.total>0){
+					$("#num").text(data.pageNum);
+					$("#size").text(data.total);
+					$("#pages").text(data.pages);
+				}else{
+					$("#num").text(0);
+					$("#size").text(0);
+					$("#pages").text(0);
+				}
+				
+				pd=data;
+				$("#list5").empty();
+				$.each(data.list, function(i, obj) {
+					if(obj.read_status==0){
+					var $row =$("<tr  style='color: red;' class='xzbid' data-bid='"+obj.inbox_id+"' data-r='"+obj.read_status+"'><td class='xstatus'>" + obj.status + "</td><td>" + obj.outbox_name + "</td><td>" + obj.inbox_name+ "</td><td>" + obj.topic + "</td>"
+							+"<td>" + obj.createTime + "</td></tr>");
+							$("#list5").append($row);
+					}else{
+						var $row =$("<tr  class='xzbid' data-bid='"+obj.inbox_id+"' data-r='"+obj.read_status+"'><td class='xstatus'>" + obj.status + "</td><td>" + obj.outbox_name + "</td><td>" + obj.inbox_name+ "</td><td>" + obj.topic + "</td>"
+								+"<td>" + obj.createTime + "</td></tr>");
+								$("#list5").append($row);
+					}
+				});
+
+			});
+		}
+		
+		$(document).on("click",".cbox",function(){
+			if($(".cbox:checked").length==$(".cbox").length){
+				$("#totalCbx").prop("checked",true);
+				
+			}else{
+				$("#totalCbx").prop("checked",false);
+			}
+		})
+
+		$("#totalCbx").click(function(){
+				if($(".cbox:checked").length<$(".cbox").length){
+					$(".cbox").each(function(){
+						$(this).prop("checked",true);
+					})
+				}else{
+					$(".cbox").each(function(){
+						$(this).prop("checked",false);
+					})
+				}
+			})
+			
+		$(document).on("click",".xzbid",function(){
+			var bid=$(this).attr("data-bid");
+			var status=$(this).find(".xstatus").text();
+			if(status=="收件"){
+				var r=$(this).attr("data-r");
+				if(r==0){
+				$.getJSON("/emailsys/sys/inboxReaded/"+bid,function(d){
+					
+					$(window.parent.document.querySelector("#badge")).text(d.msg);
+						
+					window.sessionStorage.setItem("inbox_id",bid);
+					location.href="readEmail.html";
+				})
+				}else{
+					window.sessionStorage.setItem("inbox_id",bid);
+					location.href="readEmail.html";
+				}
+			}else if(status=="发件"||status=="草稿"){
+				window.sessionStorage.setItem("outbox_id",bid);
+				location.href="readEmail.html";
+			}
+			
+			
+		})
+		$(function() {
+
+			goToPage(1,3,topic,incon,outcon,boxstatus,startDate,endDate);
+		
+			$("#delete1").click(function(){
+				if(confirm("确定要移除吗？")==false){
+					return;
+				}
+				
+				if($(".cbox :checked").length==0){
+					showAlertDialog("请选择移除项！");
+					return;
+				}
+				var strs=[];
+				$(".cbox :checked").each(function(){
+					strs.push($(this).val());
+				})
+				
+				$.ajax("/emailsys/sys/deletebox",{
+				type:"post",
+				contentType:"application/json",
+				dataType:"json",
+				data:JSON.stringify(strs),
+				timeout:5000,
+				success:function(data){
+					if(data.code==200){
+						alert("彻底删除成功！");
+						goToPage(1,3,topic,incon,outcon,boxstatus,startDate,endDate)
+					}else{
+						alert("彻底删除失败！"+data.msg);
+					}
+				}
+			});
+			})
+			
+			
+			
+			
+			$("#search").click(function(){
+			 topic=$("#titlef").val();
+			 incon=$("#inpf").val();
+			  outcon=$("#outpf").val();
+			  boxstatus=$("#areaf").val(); 
+			 startDate=$("#startDate").val();
+			 endDate=$("#endDate").val();
+			goToPage(1,pd.pageSize,topic,incon,outcon,boxstatus,startDate,endDate)
+
+			})
+			
+			//首页
+			$(".pager a:eq(0)").click(function(){
+				if(pd.pageNum==1){
+					$(this).parents("li").addClass("disabled");
+					return
+				}else{
+					$(this).parents("li").removeClass("disabled");
+				}
+				goToPage(1,pd.pageSize,topic,incon,outcon,boxstatus,startDate,endDate)
+			});
+			//末页
+			$(".pager a:eq(3)").click(function(){
+				if(pd.pageNum==pd.lastPage){
+					$(this).parents("li").addClass("disabled");
+					return
+				}else{
+					$(this).parents("li").removeClass("disabled");
+				}
+				goToPage(pd.lastPage,pd.pageSize,topic,incon,outcon,boxstatus,startDate,endDate)
+
+			});
+			
+			//上一页
+			$(".pager a:eq(1)").click(function(){
+				$(".abled").each(function(){
+						$(this).removeClass("disabled");
+					})
+				if(pd.hasPreviousPage){
+					goToPage(pd.prePage,pd.pageSize,topic,incon,outcon,boxstatus,startDate,endDate)
+				}else{
+					$(this).parents("li").addClass("disabled");
+				}
+			});
+			
+			//下一页
+			$(".pager a:eq(2)").click(function(){
+				$(".abled").each(function(){
+						$(this).removeClass("disabled");
+				})
+				if(pd.hasNextPage){
+					goToPage(pd.nextPage,pd.pageSize,topic,incon,outcon,boxstatus,startDate,endDate)
+
+				}else{
+					$(this).parents("li").addClass("disabled");
+				}
+			});
+		})
+	
+	</script>
+
+</html>

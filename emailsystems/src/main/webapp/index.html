@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>欢迎你界面</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/jquery.treeview.css" />
+		<style>
+			#main {
+				margin: 0px 40px;
+			}
+			
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				text-decoration: none;
+			}
+			
+			.content {
+				display: flex;
+				justify-content: space-around;
+			}
+			
+			.cleft {
+				flex: 1;
+				padding-left: 20px;
+			}
+			
+			.cright {
+				flex: 6;
+			}
+			#load_cont{
+				border: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<nav class="navbar">
+			<div class="navbar-header">
+				<img src="img/2016112213215716191504058.png" />
+			</div>
+			
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;" <b style="color: red;" id="uid" data-uid = "E2018001"></b></a></li>
+
+				<li><a href="#"  id="bellse"><span class="glyphicon glyphicon-bell"></span><b class="badge" id="badge" style="background: red;position: relative;top: -11px;">0</b></a></li>
+			
+				<li><a href="#"><span class="glyphicon glyphicon-off" id="loginout"></span></a></li>
+			</ul>
+		</nav>
+		<hr style="border:darkblue solid 7px; " />
+		<br />
+		</div>
+		<div class="content">
+			<div id="main" class="cleft">
+				<ul id="treeview" class="filetree">
+					<li><span style="color: #337AB7;">邮件</span>
+						<ul>
+							<li>
+								<a href="javascrpit:void(0)" class="tar" tar="add"><span class="glyphicon glyphicon-unchecked"></span> 写信</a>
+							</li>
+							<li>
+								<a href="javascrpit:void(0)" class="tar" tar="inbox.html" style="color: red;"><span id="bels" class="glyphicon glyphicon-expand"></span> 收件箱</a>
+							</li>
+							<li>
+								<a href="javascrpit:void(0)" class="tar" tar="drafts.html"><span class="glyphicon glyphicon-unchecked"></span> 草稿箱</a>
+							</li>
+							<li>
+								<a href="javascrpit:void(0)" class="tar" tar="outbox.html"><span class="glyphicon glyphicon-unchecked"></span> 发件箱</a>
+							</li>
+							<li>
+								<a href="javascrpit:void(0)" class="tar" tar="discardEmail.html"><span class="glyphicon glyphicon-unchecked"></span> 废件箱</a>
+							</li>
+							
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="cright">
+					<iframe id="load_cont" width="1010px" height="555" src="" scrolling="auto" ></iframe>
+			
+
+			</div>
+		</div>
+
+	</body>
+	<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jquery.treeview.js"></script>
+	<script type="text/javascript" src="js/superDialog.js"></script>
+
+	<script>
+		/*加载top页面*/
+
+		$(function() {
+
+			loads("inbox.html");
+			
+			$.getJSON("/emailsys/sys/loginObj",function(data){
+				if(data=="nos"){
+					location.href="/emailsys/employee/sessionerror";
+				}
+				$("#uid").text(data.dpt.department_name+"_"+data.ename);
+				$("#uid").attr("data-uid",data.eid);
+				$("#badge").text(data.status)
+			});
+			
+			$("#loginout").click(function(){
+				if(confirm("确定要退出吗？")==false){
+					return;
+				}
+				$.getJSON("/emailsys/employee/loginout",function(data){
+				window.location.href="login.html";
+			});
+			})
+			
+			$("#bellse").click(function(){
+				$(".tar").css("color", "#337AB7");
+				$(".tar").children("span").removeClass("glyphicon-unchecked glyphicon-expand");
+				$(".tar").children("span").addClass("glyphicon-unchecked");
+				$("#bels").addClass("glyphicon-expand");
+				$("#bels").parent().css("color", "red");
+				loads("inbox.html");
+			})
+			
+			$(".tar").click(function() {
+				$(".tar").css("color", "#337AB7");
+				$(".tar").children("span").removeClass("glyphicon-unchecked glyphicon-expand");
+				$(".tar").children("span").addClass("glyphicon-unchecked");
+				$(this).children("span").removeClass("glyphicon-expand glyphicon-unchecked");
+				$(this).children("span").addClass("glyphicon-expand");
+				$(this).css("color", "red");
+				if($(this).attr("tar") == "add") {
+					showWindowDialog("addEmail.html", "编辑邮件");
+					return;
+				}
+				loads($(this).attr("tar"))
+			})
+		});
+
+		function loads(load_html) {
+			$("#load_cont").attr("src",load_html);
+		}
+
+		/*树状菜单*/
+		$(document).ready(function() {
+			$("#treeview").treeview({
+				toggle: function() {
+					console.log("%s was toggled.", $(this).find(">span").text());
+				}
+			});
+		});
+	</script>
+
+</html>

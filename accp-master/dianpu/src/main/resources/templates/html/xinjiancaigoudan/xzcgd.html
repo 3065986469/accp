@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		
+	</head>
+	<style>
+		
+	</style>
+	<body>
+		<div class="container">
+			<div class="row col-md-10 col-md-offset-1">
+				<h4 class="col-md-4">新建采购单</h4> <span class="col-md-5" style="float: right;">
+					<input type="text" placeholder="请输入货号或条码" class="btn"/><button class="glyphicon glyphicon-search btn btn-success"  >搜索</button>
+				</span>
+			</div>
+			<hr class="col-md-10 col-md-offset-1" />
+			<div class="row col-md-10 col-md-offset-1">
+				<div class="col-md-4">单号&nbsp;&nbsp;&nbsp;&nbsp;<input></div><div class="col-md-4">交期<input type="date"></div><div class="col-md-4">供应商<input></div>
+				<div class="col-md-4">制单人<input></div> <div class="col-md-4">店铺<select><option>请选择店铺</option></select></div>
+				<div class="col-md-12">备注&nbsp;&nbsp;&nbsp;&nbsp;<textarea cols="100" rows="2"></textarea></div>
+				<div class="col-md-12">
+					<table class="table table-hover table-bordered">
+					<thead>
+						<tr>
+							<th style="text-align: center;">货号</th>
+							<th style="text-align: center;">条码</th>
+							<th style="text-align: center;">产品名称</th>
+							<th style="text-align: center;">规格</th>
+							<th style="text-align: center;">成本价</th>
+							<th style="text-align: center;">数量</th>
+							<th style="text-align: center;">金额</th>
+							
+						
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="text-align: center;">序号</td>
+							<td style="text-align: center;">简称</td>
+							<td style="text-align: center;">公司名称</td>
+							<td style="text-align: center;">联系人</td>
+							<td style="text-align: center;">手机</td>
+							<td style="text-align: center;">电话</td>
+							<td style="text-align: center;">邮箱</td>	
+						</tr>
+						<tr><td colspan="7" style="text-align: right;"><span>合计<span style="color: red;" >0</span>件</span>
+							金额<span style="color: red;">0.00</span>
+						</td></tr>
+					</tbody>
+				</table>
+				<a href="#tjsp" style="color: green;" data-toggle="modal">*添加商品</a>
+					<div id="tjsp" class="modal fade ">
+					<div class="modal-dialog modal-xg">
+						  <div class="modal-content">
+						<div class="modal-header">
+							
+							<h3>选择商品</h3>
+							<button class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body ">
+							<table class="table table-hover table-bordered">
+								<thead>
+									<tr>
+										<th style="text-align: center;"><input type="checkbox">全选</th>
+										<th style="text-align: center;">货号/条码</th>
+										<th style="text-align: center;">商品</th>
+										<th style="text-align: center;">规格</th>
+										<th style="text-align: center;">单价</th>
+										<th style="text-align: center;">库存</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td style="text-align: center;">序号</td>
+										<td style="text-align: center;">简称</td>
+										<td style="text-align: center;">公司名称</td>
+										<td style="text-align: center;">联系人</td>
+										<td style="text-align: center;">手机</td>
+										<td style="text-align: center;">电话</td>
+									
+									</tr>
+									
+								</tbody>
+							</table>
+							
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-default" data-dismiss="modal">取消</button>
+							<button class="btn btn-success" id="qd">确定</button>
+						</div>
+					</div>
+					</div>
+				</div>
+				<button class="btn btn-success"  style="float: right;">提交</button><button class="btn btn-gray-500" style="float: right;">清空</button>
+				</div>
+				
+			</div>
+		</div>
+	</body>
+</html>

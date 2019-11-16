@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>编写页面</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link href="css/file.css" rel="stylesheet" type="text/css" />
+		<style>
+			body {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			#addEmail {
+				margin: 20px 40px;
+			}
+			
+			#addEmail div {
+				margin-top: 10px;
+			}
+			.dpts{
+				cursor: pointer;
+			}
+			
+			td input,textarea {
+				outline: 0px;
+				border: solid grey 2px;
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+			<table>
+				<tr>
+					<td width="150" align="right"><b>发送人姓名：</b></td>
+					<td width="300"><input type="text" id="txtNames" data-uid="" readonly="readonly">
+						<span class="btn btn-info" id="sendp">请选择发送人</span>
+						<span class="btn btn-warning" id="resichso">清除</span>
+						<span class="btn btn-primary" id="vichso">显示抄送</span>
+						
+					</td>
+				</tr>
+				<tr><td colspan="2" height="6"></td></tr>
+				<tbody id="tbody2" style="display: none;">
+					<tr  style="border: solid 2px gainsboro;">
+						<td width="100" align="right"><b>抄送人姓名：</b></td>
+					<td width="200"><input type="text" value=""  data-uid=""  id="txtNames1"  readonly="readonly">
+						<span class="btn btn-danger" id="cachso">取消抄送</span>
+						<span class="btn btn-warning" id="resichso1">清除</span>
+					</td>
+					</tr >
+				</tbody>
+				<tr><td colspan="2" height="6"></td></tr>
+				<tbody id="tbody1"  style="display: none;">
+					<tr>
+						<td align="right"><span class="glyphicon glyphicon-remove" id="cachso1"></span>  &nbsp;<b style="color: red;">抄送人员选择：</b></td>
+						<td>
+							<div style="border: solid 2px gainsboro;" class="dpts" id="dpts1">
+								
+							</div>
+						</td>
+					</tr>
+				</tbody>
+				<tbody id="tbody"  style="display: none;">
+					<tr>
+						<td align="right"><span class="glyphicon glyphicon-remove" id="sendp1"></span>  &nbsp;<b style="color: red;">发送人员选择：</b></td>
+						<td>
+							<div style="border: solid 2px darkgoldenrod;" class="dpts" id="dpts">
+								
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			<tr><td colspan="2" height="6"></td></tr>
+				<tr>
+					<td align="right"><label>主题：</label> </td>
+					<td><input type="text"  id="titlets"  value=""/></td>
+				</tr>
+				
+				<tr>
+					<td align="right"><label>相关附件：</label></td>
+					<td>
+						<a href="javascript:;" class="file">相关文件选择
+							<input type="file" name="" id="vd_path">
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" height="10"></td>
+				</tr>
+				<tbody>
+					<tr>
+						<td></td>
+						<td  id="td">
+							
+						</td>
+					</tr>
+				</tbody>
+				<tr>
+					<td colspan="2" height="10"></td>
+				</tr>
+				<tr>
+					<td align="right"><label>正文：</label></td>
+					<td><textarea rows="8" cols="80" id="txtContent"></textarea></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center" id="btns">
+						<button type="button" class="btn btn-success"   data-dismiss="modal">发送</button>
+						<button type="button" class="btn btn-info"  data-dismiss="modal">存稿</button>
+					</td>
+				</tr>
+			</table>
+
+	</body>
+	<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script>
+	
+	 var draft_status=1;
+	 var inbox_id=0;
+	 var outbox_id=0;
+		$(function() {
+			
+			$.getJSON("/emailsystems/email/box",function(d){
+				//alert(d);
+				if (d!=null) {
+					//$("#txtTime").val(d.createTime);
+					//alert(d.inboxeid);
+					 $("#txtNames").val(d.inboxname);
+					 $("#txtShou").val(d.outboxname);
+					 $("#txtContent").text(d.content);
+					 $("#titlets").val(d.topic);
+					 $("#txtNames").attr("data-uid",d.inboxeid);
+					 $("#txtShou").attr("data-id",d.outboxeid);
+					 $("#draftStatus").val(d.draftstatus);
+					// $("#inbox_id").val(0);
+					 $("#outbox_id").val(d.boxid);
+				}else{
+					reset();
+				}
+				
+			});
+			
+			
+			$("#resichso").click(function(){
+				$("#txtNames").val("");
+			})
+			
+			$("#rstatus").click(function(){
+				if(this.checked){
+					$(this).val(1)
+				}else{
+					$(this).val(0)
+
+				}
+			})
+			//alert(11);
+			$.getJSON("/emailsystems/user/queryemp",function(b){
+				//alert(11);
+				$(".dpts").children().empty();
+				
+					//var $div=$(div);
+					var $ol=$("<ol class='list-group lgp'></ol>");
+					$.each(b, function(e1,b1) {
+						//alert(b1.ename);
+					var li="<li class='list-group-item group-item' data-uid ='"+b1.eid+"'>"+b1.ename+"</li>";
+					
+					$ol.append($(li));
+					
+					$("#dpts").append($ol);
+					})
+					//$div.append($ol);
+					
+				
+			
+				
+					$(".dpts1").children().empty();
+					//var $div=$(div);
+					var $oll=$("<ol class='list-group lgp1'  style=''></ol>");
+					$.each(b, function(e1,b1) {
+						
+					var li="<li class='list-group-item group-item1' data-uid ='"+b1.eid+"'>"+b1.ename+"</li>";
+					
+					$oll.append($(li));
+					$("#dpts1").append($oll);
+					})
+					//$div.append($ol);
+					
+				
+			});
+			
+			$("#vd_path").change(function(e) {
+						var fr = new FileReader();
+						var file = this.files[0];
+						alert($("#vd_path").val());
+						var _temp = file.name.match(/\.jpg|\.png|\.gif|\.bmp/i);
+						if (!_temp) {
+							this.value = "";
+							alert("目前只支持jpg,png,bmp,gif格式图片文件");
+							return false;
+						} else if (file.size > (5*1024 * 1024)) {
+							this.value = "";
+							alert("目前只支持小于5M大小图片文件");
+							return false;
+						}
+						fr.readAsDataURL(file);//读取文件
+						//操作文件事件
+						fr.onload = function() {
+							var base64Data = this.result;//获得base编码字符串格式
+							/* imgObj.name = file.name;//设置文件名
+							imgObj.data = base64Data.substring(base64Data
+									.indexOf(';base64,') + 8);  //设置base64数据字符串 */
+							base64Temp=base64Data;
+							var td="<span style='margin: 5px;'><img src='"+base64Data+"' class='icons' width='40' height='30'>"
+									+"<label class='glyphicon glyphicon-remove icon-remove' style='color: red;'></label></span>";
+							$("#td").append($(td));
+						};
+						$.ajax("/emailsystems/email/path",{
+							type:"post",
+							data:{
+								file:$("#vd_path").val()
+							},
+							timeout:5000,
+							success:function(data){
+								if(data==1){
+									alert("上传成功");
+								}else{
+									showAlertDialog("上传失败！");
+								}
+							}
+						});
+					});
+			
+			$(document).on("click",".icon-remove",function(){
+				$(this).parent().remove();
+			})
+			
+		
+			$("#vichso").click(function(){
+				$("#tbody1,#tbody2").show();
+			})
+			
+			$("#sendp").click(function(){
+				$("#tbody").show();
+			})
+			
+			$("#sendp1").click(function(){
+				$("#tbody").hide();
+			})
+			
+			$("#cachso").click(function(){
+				$(this).prev().val("");
+				$("#tbody1,#tbody2").hide();
+			})
+			
+			$("#resichso1").click(function(){
+				$(this).prev().prev().val("");
+				
+			})
+			
+			
+			$("#cachso1").click(function(){
+				$("#tbody1").hide();
+			})
+			
+			
+			
+			$("#btns button:eq(1)").click(function(){ 
+				//alert(txtNames);
+				var txtNames= $("#txtNames").attr("data-uid");
+				var titlets= $("#titlets").val();
+				//var rstatus= $("#rstatus").val();
+				var txtContent= $("#txtContent").val();
+				if(draft_status==0){
+					showAlertDialog("已存为草稿邮件！")
+					return;
+				}
+				if($("#txtNames").val()==""){
+					showAlertDialog("发送人不能为空！")
+					return;
+				}
+				if(titlets==""){
+					showAlertDialog("发送主题不能为空！")
+					return;
+				}
+				 txtNames+=$("#txtNames1").attr("data-uid");
+				 alert(txtNames);
+
+
+			$.ajax("/emailsystems/email/addEmail",{
+				type:"post",
+				data:{
+					inname:txtNames,
+					zt:titlets,
+					topic:txtContent,
+					box:0
+				},
+				timeout:5000,
+				success:function(data){
+					if(data==1){
+						showAlertDialog("存稿成功！");
+						reset();
+					}else{
+						showAlertDialog("存稿失败！");
+					}
+				}
+			});
+				
+			});
+			
+			
+			$("#btns button:eq(0)").click(function(){   
+				
+				var txtNames= $("#txtNames").attr("data-uid");
+				//alert(txtNames);
+				var titlets= $("#titlets").val();
+				//var rstatus= $("#rstatus").val();
+				var txtContent= $("#txtContent").val();
+				if($("#txtNames").val()==""){
+					showAlertDialog("发送人不能为空！")
+					return;
+				}
+				if(titlets==""){
+					showAlertDialog("发送主题不能为空！")
+					return;
+				}
+				
+			txtNames+=$("#txtNames1").attr("data-uid");
+			alert(txtNames);
+
+			$.ajax("/emailsystems/email/addEmail",{
+				type:"post",
+				data:{
+					inname:txtNames,
+					zt:titlets,
+					topic:txtContent,
+					box:1
+				},
+				timeout:5000,
+				success:function(data){
+					if(data==1){
+						showAlertDialog("发送成功！");
+						reset();
+					}else{
+						showAlertDialog("发送失败！");
+					}
+				}
+			});
+				
+			});
+		});
+		$(document).on("click",".down",function(){
+			var $tp=$(this).parent().find(".lgp");
+			$(this).find("span").removeClass("glyphicon-menu-down glyphicon-menu-up");
+			if( $tp.css("display")=="none"){
+				
+				$(this).find("span").addClass("glyphicon-menu-up");
+				 $tp.show();
+			}else{
+				$(this).find("span").addClass("glyphicon-menu-down");
+				 $tp.hide();
+			}
+		
+		})
+				
+		$(document).on("click",".down1",function(){
+			var $tp=$(this).parent().find(".lgp1");
+			$(this).find("span").removeClass("glyphicon-menu-down glyphicon-menu-up");
+			if( $tp.css("display")=="none"){
+				$(this).find("span").addClass("glyphicon-menu-up");
+				 $tp.show();
+			}else{
+				$(this).find("span").addClass("glyphicon-menu-down");
+				 $tp.hide();
+			}
+		})
+		
+		
+		$(document).on("click",".group-item1",function(){
+			var $this_uid=$(this).attr("data-uid");
+			var uname=$(this).text();
+			$.ajax("/emailsystems/email/user",{
+				type:"post",
+				data:{},
+				dataType:"json",
+				timeout:5000,
+				success:function(data){
+					if (data.eid==$this_uid) {
+						showAlertDialog("不能发给自己！");
+						return;
+					}
+					if($("#cachso").prev().val().indexOf(uname+",")>=0||$("#txtNames").val().indexOf(uname+",")>=0){
+						showAlertDialog("已选择该用户");
+					}else{
+						$(".group-item1").removeClass("active");
+						$(this).addClass("active");
+						var tp=$("#cachso").prev().val()+uname;
+						var tp1=$("#cachso").prev().attr("data-uid")+$this_uid;
+						$("#cachso").prev().attr("data-uid",tp1+",")
+						$("#cachso").prev().val(tp+",")
+					}
+				}
+			});
+		
+			
+		})
+		
+		$(document).on("click",".group-item",function(){
+			var $this_uid=$(this).attr("data-uid");
+			//var eid=false;
+			var uname=$(this).text();
+			$.ajax("/emailsystems/email/user",{
+				type:"get",
+				data:{},
+				dataType:"json",
+				timeout:5000,
+				success:function(data){
+				//	alert(data.eid);
+					if (data.eid==$this_uid) {
+						showAlertDialog("不能发给自己！");
+					//	eid=true;
+						return;
+					}
+					if($("#cachso").prev().val().indexOf(uname+",")>=0||$("#txtNames").val().indexOf(uname+",")>=0){
+						showAlertDialog("已选择该用户");
+					}else{
+							$(".group-item").removeClass("active");
+							$(this).addClass("active");
+							var tp=$("#txtNames").val()+uname;
+							var tp1=$("#txtNames").attr("data-uid")+$this_uid;
+							$("#txtNames").attr("data-uid",tp1+",")
+							$("#txtNames").val(tp+",")
+					}
+				}
+			});
+			
+			
+			
+		})
+		
+		function reset(){
+			$("#txtNames").val("");
+			$("#txtNames").attr("data-uid","");
+			$("#txtNames1").val("");
+			$("#txtNames1").attr("data-uid","");
+			$("#titlets").val("");
+			$("#rstatus").prop("checked",false);
+			$("#txtContent").val("");
+			$("#td").empty();
+			$("#tbody1,#tbody2").hide();
+		}
+		
+		//验证图片是否失效
+		/* function validateImage(url)
+		    {    
+		        var xmlHttp ;
+		        if (window.ActiveXObject)
+		         {
+		          xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+		         }
+		         else if (window.XMLHttpRequest)
+		         {
+		          xmlHttp = new XMLHttpRequest();
+		         } 
+		        xmlHttp.open("Get",url,false);
+		        xmlHttp.send();
+		        if(xmlHttp.status==404)
+		        return false;
+		        else
+		        return true;
+		    } */
+	</script>
+
+</html>

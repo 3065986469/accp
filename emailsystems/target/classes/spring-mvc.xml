@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+		<import resource="application.xml"/>
+		<context:component-scan base-package="com.aptech.action"></context:component-scan>
+	
+	<!-- 允许访问静态资源(html、css、js、图片....) -->
+	<mvc:default-servlet-handler/>
+	
+	<!-- 注册视图解析器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 视图解析器解析方式 -->
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+		<!-- 存放视图的路径 -->
+		<property name="prefix" value="/WEB-INF/pages2/"></property>
+		<!-- 视图的后缀名 -->
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	
+	
+	<!-- 文件上传解析器 【id:multipartResolver 必须存在】 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 上传文件总大小(足够大，以便回避tomcat的bug) -->
+		<property name="maxUploadSize" value="30971520" />
+		<!-- resolveLazily属性启用是为了推迟文件解析，以便在Action中捕获文件大小异常-->
+		<property name="resolveLazily" value="true" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
+	<!-- 一站式注册各种插件 -->
+	<mvc:annotation-driven>
+		<!-- 注册消息转换器 -->
+		<mvc:message-converters register-defaults="false">
+			<!-- 添加fastJson支持 -->
+			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<!-- 如果是ie，必须设置该行，否则会变成文件下载 -->
+						<value>text/html;charset=utf-8</value>
+						<!-- 设置返回类型为json -->
+						<value>application/json;charset=utf-8</value>
+					</list>
+				</property>
+				<property name="features">
+					<list>
+						<!-- 空的集合null转变成[] -->
+						<!-- <value>WriteNullListAsEmpty</value> -->
+						<!-- 将空字符串转成"" -->
+						<!-- <value>WriteNullStringAsEmpty</value> -->
+						<!-- 配置日期格式化，默认使用yyyy-MM-dd -->
+						<value>WriteDateUseDateFormat</value>
+						<!-- 配置如果有引用类型，json会以ref形式呈现 -->
+						<!-- 
+							List<Student> list = new ArrayList<Student>();
+							Student stu = new Student();
+							list.add(stu);
+							list.add(stu);
+							[{\"id\":\"ref\",\"name\":\"ref\"},{}]
+						 -->
+						<value>DisableCircularReferenceDetect</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	
+	</beans>
