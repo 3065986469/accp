@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+
+	</style>
+
+	<body>
+		<div id="xax">
+			<div class="container">
+				<div class="col-lg-12 mb-5">
+					<div class="card">
+						<div class="card-header">
+							<h3 class="h6 text-uppercase mb-0">商品管理<span style="float: right;">
+				<select id="dpxlk" >
+					<option>店铺</option>
+				</select>				
+				<select id="lbxlk" >
+					<option>全部类别</option>
+				</select>
+				<input type="text" class="form" placeholder="查找"/><input type="button" value="查询" class="btn-success" />
+                    <input type="button" class="btn-default" value="导出商品" />&nbsp;&nbsp;<input type="button" class="btn-default" value="批量导入" />
+                    <input type="button" id="sck" class="btn-success" value="商品上传" />
+                    
+                    </span></h3>
+						</div>
+						<div class="card-body">
+							<table class="table table-hover table-striped">
+								<thead>
+									<tr>
+										<th style="text-align: center;">选择</th>
+										<th style="text-align: center;">序号</th>
+										<th style="text-align: center;">类别</th>
+										<th style="text-align: center;">品名</th>
+										<th style="text-align: center;">货号/条码</th>
+										<th style="text-align: center;">规格</th>
+										<th style="text-align: center;">库存</th>
+										<th style="text-align: center;">销售价</th>
+										<th style="text-align: center;">成本价</th>
+										<th style="text-align: center;">网店同步</th>
+
+										<th style="text-align: center;">操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td style="text-align: center;"><input type="checkbox"></td>
+										<td style="text-align: center;">名称</td>
+										<td style="text-align: center;">名称</td>
+										<td style="text-align: center;">名称</td>
+										<td style="text-align: center;">名称</td>
+										<td style="text-align: center;">名称</td>
+										<td style="text-align: center;">名称</td>
+
+										<td style="text-align: center;">名称</td>
+										<td style="text-align: center;">名称</td>
+										<td style="text-align: center;">名称</td>
+										<td style="text-align: center;">
+											<a href="javascript:void(0);">删除</a>&nbsp;
+											<a href="javascript:void(0);">编辑</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<!--<div class="row col-md-12">
+				<h4 class="col-md-2">商品类别</h4> 
+			</div>
+			<div class="row col-md-10 col-md-offset-1" >
+				<div class="col-md-2">
+				<select id="lbxlk" >
+					<option>全部类别</option>
+				</select></div>
+				<div class="col-md-4">
+				<input type="text" class="form" placeholder="查找"/><input type="button" value="查询" class="btn-success" /></div>
+				<div class="col-md-3">
+					<input type="button" class="btn-default" value="导出商品" />&nbsp;&nbsp;<input type="button" class="btn-default" value="批量导入" />
+				</div>
+				<div class="col-md-2">
+					<input type="button" id="sck" class="btn-success" value="商品上传" />
+				</div>
+				<div class="col-md-2">
+					<select id="dpxlk" >
+					<option>店铺</option>
+				</select>
+				</div>
+			</div>
+			
+			<div class="col-md-10 col-md-offset-1">
+				
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th style="text-align: center;">选择</th>
+							<th style="text-align: center;">序号</th>
+							<th style="text-align: center;">类别</th>
+							<th style="text-align: center;">品名</th>
+							<th style="text-align: center;">货号/条码</th>
+							<th style="text-align: center;">规格</th>
+							<th style="text-align: center;">库存</th>
+							<th style="text-align: center;">销售价</th>
+							<th style="text-align: center;">成本价</th>
+							<th style="text-align: center;">网店同步</th>
+							
+							<th style="text-align: center;">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="text-align: center;"><input type="checkbox"></td>
+							<td style="text-align: center;">名称</td>
+							<td style="text-align: center;">名称</td>
+							<td style="text-align: center;">名称</td>
+							<td style="text-align: center;">名称</td>
+							<td style="text-align: center;">名称</td>
+							<td style="text-align: center;">名称</td>
+							
+							<td style="text-align: center;">名称</td>
+							<td style="text-align: center;">名称</td>
+							<td style="text-align: center;">名称</td>
+							<td style="text-align: center;"><a href="javascript:void(0);">删除</a>&nbsp;<a href="javascript:void(0);">编辑</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		</div>-->
+	</body>
+	<script>
+		$(function() {
+			$("#sck").click(function() {
+				$("#btn button").attr("class", "btn btn-gray-500 btn-lg");
+				$("#spsc").attr("class", "btn btn-primary btn-lg");
+				init("shangpinshangchuan/shangpinshch");
+			});
+			
+			
+		});
+		
+		function init(index) {
+			$.ajax({
+				url : "[[@{/dianpu/go}]]",
+				data : {
+					method : index
+				},
+				dataType : "html",
+				success : function(res) {
+					$("#lb").empty();
+					$("#lb").append(res);
+				}
+			});
+		}
+
+	</script>
+
+</html>

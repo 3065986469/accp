@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.YuangongMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Yuangong" >
+    <id column="ygid" property="ygid" jdbcType="INTEGER" />
+    <result column="ygname" property="ygname" jdbcType="VARCHAR" />
+    <result column="dpid" property="dpid" jdbcType="INTEGER" />
+    <result column="zwid" property="zwid" jdbcType="INTEGER" />
+    <result column="ygpwd" property="ygpwd" jdbcType="VARCHAR" />
+    <result column="yghangye" property="yghangye" jdbcType="VARCHAR" />
+    <result column="ygimg" property="ygimg" jdbcType="VARCHAR" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ygid, ygname, dpid, zwid, ygpwd, yghangye, ygimg, sid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.YuangongExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yuangong
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yuangong
+    where ygid = #{ygid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yuangong
+    where ygid = #{ygid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.YuangongExample" >
+    delete from yuangong
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Yuangong" >
+    insert into yuangong (ygid, ygname, dpid, 
+      zwid, ygpwd, yghangye, 
+      ygimg, sid)
+    values (#{ygid,jdbcType=INTEGER}, #{ygname,jdbcType=VARCHAR}, #{dpid,jdbcType=INTEGER}, 
+      #{zwid,jdbcType=INTEGER}, #{ygpwd,jdbcType=VARCHAR}, #{yghangye,jdbcType=VARCHAR}, 
+      #{ygimg,jdbcType=VARCHAR}, #{sid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Yuangong" >
+    insert into yuangong
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ygid != null" >
+        ygid,
+      </if>
+      <if test="ygname != null" >
+        ygname,
+      </if>
+      <if test="dpid != null" >
+        dpid,
+      </if>
+      <if test="zwid != null" >
+        zwid,
+      </if>
+      <if test="ygpwd != null" >
+        ygpwd,
+      </if>
+      <if test="yghangye != null" >
+        yghangye,
+      </if>
+      <if test="ygimg != null" >
+        ygimg,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ygid != null" >
+        #{ygid,jdbcType=INTEGER},
+      </if>
+      <if test="ygname != null" >
+        #{ygname,jdbcType=VARCHAR},
+      </if>
+      <if test="dpid != null" >
+        #{dpid,jdbcType=INTEGER},
+      </if>
+      <if test="zwid != null" >
+        #{zwid,jdbcType=INTEGER},
+      </if>
+      <if test="ygpwd != null" >
+        #{ygpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="yghangye != null" >
+        #{yghangye,jdbcType=VARCHAR},
+      </if>
+      <if test="ygimg != null" >
+        #{ygimg,jdbcType=VARCHAR},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.YuangongExample" resultType="java.lang.Integer" >
+    select count(*) from yuangong
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update yuangong
+    <set >
+      <if test="record.ygid != null" >
+        ygid = #{record.ygid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ygname != null" >
+        ygname = #{record.ygname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpid != null" >
+        dpid = #{record.dpid,jdbcType=INTEGER},
+      </if>
+      <if test="record.zwid != null" >
+        zwid = #{record.zwid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ygpwd != null" >
+        ygpwd = #{record.ygpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yghangye != null" >
+        yghangye = #{record.yghangye,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ygimg != null" >
+        ygimg = #{record.ygimg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update yuangong
+    set ygid = #{record.ygid,jdbcType=INTEGER},
+      ygname = #{record.ygname,jdbcType=VARCHAR},
+      dpid = #{record.dpid,jdbcType=INTEGER},
+      zwid = #{record.zwid,jdbcType=INTEGER},
+      ygpwd = #{record.ygpwd,jdbcType=VARCHAR},
+      yghangye = #{record.yghangye,jdbcType=VARCHAR},
+      ygimg = #{record.ygimg,jdbcType=VARCHAR},
+      sid = #{record.sid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Yuangong" >
+    update yuangong
+    <set >
+      <if test="ygname != null" >
+        ygname = #{ygname,jdbcType=VARCHAR},
+      </if>
+      <if test="dpid != null" >
+        dpid = #{dpid,jdbcType=INTEGER},
+      </if>
+      <if test="zwid != null" >
+        zwid = #{zwid,jdbcType=INTEGER},
+      </if>
+      <if test="ygpwd != null" >
+        ygpwd = #{ygpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="yghangye != null" >
+        yghangye = #{yghangye,jdbcType=VARCHAR},
+      </if>
+      <if test="ygimg != null" >
+        ygimg = #{ygimg,jdbcType=VARCHAR},
+      </if>
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ygid = #{ygid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Yuangong" >
+    update yuangong
+    set ygname = #{ygname,jdbcType=VARCHAR},
+      dpid = #{dpid,jdbcType=INTEGER},
+      zwid = #{zwid,jdbcType=INTEGER},
+      ygpwd = #{ygpwd,jdbcType=VARCHAR},
+      yghangye = #{yghangye,jdbcType=VARCHAR},
+      ygimg = #{ygimg,jdbcType=VARCHAR},
+      sid = #{sid,jdbcType=INTEGER}
+    where ygid = #{ygid,jdbcType=INTEGER}
+  </update>
+</mapper>

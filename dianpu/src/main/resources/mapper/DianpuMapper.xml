@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.DianpuMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Dianpu" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="dpid" property="dpid" jdbcType="VARCHAR" />
+    <result column="dpname" property="dpname" jdbcType="VARCHAR" />
+    <result column="dplianxiren" property="dplianxiren" jdbcType="VARCHAR" />
+    <result column="dpphone" property="dpphone" jdbcType="VARCHAR" />
+    <result column="dpaddress" property="dpaddress" jdbcType="VARCHAR" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, dpid, dpname, dplianxiren, dpphone, dpaddress, sid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.DianpuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dianpu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dianpu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dianpu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.DianpuExample" >
+    delete from dianpu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Dianpu" >
+    insert into dianpu (id, dpid, dpname, 
+      dplianxiren, dpphone, dpaddress, 
+      sid)
+    values (#{id,jdbcType=INTEGER}, #{dpid,jdbcType=VARCHAR}, #{dpname,jdbcType=VARCHAR}, 
+      #{dplianxiren,jdbcType=VARCHAR}, #{dpphone,jdbcType=VARCHAR}, #{dpaddress,jdbcType=VARCHAR}, 
+      #{sid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Dianpu" >
+    insert into dianpu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dpid != null" >
+        dpid,
+      </if>
+      <if test="dpname != null" >
+        dpname,
+      </if>
+      <if test="dplianxiren != null" >
+        dplianxiren,
+      </if>
+      <if test="dpphone != null" >
+        dpphone,
+      </if>
+      <if test="dpaddress != null" >
+        dpaddress,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dpid != null" >
+        #{dpid,jdbcType=VARCHAR},
+      </if>
+      <if test="dpname != null" >
+        #{dpname,jdbcType=VARCHAR},
+      </if>
+      <if test="dplianxiren != null" >
+        #{dplianxiren,jdbcType=VARCHAR},
+      </if>
+      <if test="dpphone != null" >
+        #{dpphone,jdbcType=VARCHAR},
+      </if>
+      <if test="dpaddress != null" >
+        #{dpaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.DianpuExample" resultType="java.lang.Integer" >
+    select count(*) from dianpu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dianpu
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.dpid != null" >
+        dpid = #{record.dpid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpname != null" >
+        dpname = #{record.dpname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dplianxiren != null" >
+        dplianxiren = #{record.dplianxiren,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpphone != null" >
+        dpphone = #{record.dpphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpaddress != null" >
+        dpaddress = #{record.dpaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dianpu
+    set id = #{record.id,jdbcType=INTEGER},
+      dpid = #{record.dpid,jdbcType=VARCHAR},
+      dpname = #{record.dpname,jdbcType=VARCHAR},
+      dplianxiren = #{record.dplianxiren,jdbcType=VARCHAR},
+      dpphone = #{record.dpphone,jdbcType=VARCHAR},
+      dpaddress = #{record.dpaddress,jdbcType=VARCHAR},
+      sid = #{record.sid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Dianpu" >
+    update dianpu
+    <set >
+      <if test="dpid != null" >
+        dpid = #{dpid,jdbcType=VARCHAR},
+      </if>
+      <if test="dpname != null" >
+        dpname = #{dpname,jdbcType=VARCHAR},
+      </if>
+      <if test="dplianxiren != null" >
+        dplianxiren = #{dplianxiren,jdbcType=VARCHAR},
+      </if>
+      <if test="dpphone != null" >
+        dpphone = #{dpphone,jdbcType=VARCHAR},
+      </if>
+      <if test="dpaddress != null" >
+        dpaddress = #{dpaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Dianpu" >
+    update dianpu
+    set dpid = #{dpid,jdbcType=VARCHAR},
+      dpname = #{dpname,jdbcType=VARCHAR},
+      dplianxiren = #{dplianxiren,jdbcType=VARCHAR},
+      dpphone = #{dpphone,jdbcType=VARCHAR},
+      dpaddress = #{dpaddress,jdbcType=VARCHAR},
+      sid = #{sid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

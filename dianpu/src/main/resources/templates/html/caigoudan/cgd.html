@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<body>
+		
+		<div class="container">
+		 <div class="col-lg-12 mb-5">                           
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="h6 text-uppercase mb-0">采购单<span style="float: right;">
+                    	<input type="date"  value="2000-01-01"/>至<input  type="date" value="2019-01-01"/>&nbsp;&nbsp;
+					<select id="" class=""><option>全部店铺</option></select>&nbsp;<input type="text" placeholder="查找" class="btn"/>&nbsp;&nbsp;&nbsp;<button class="glyphicon glyphicon-search btn btn-success"  >查询</button>&nbsp;
+					<input type="button" id="xjiancgd" value="新建采购单" class="btn btn-success" />
+                    </span></h3>
+                  </div>
+                  <div class="card-body">
+                    <table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th style="text-align: center;">序号</th>
+							<th style="text-align: center;">审核</th>
+							<th style="text-align: center;">采购单号</th>
+							<th style="text-align: center;">交货期</th>
+							<th style="text-align: center;">供应商</th>
+							<th style="text-align: center;">数量</th>
+							<th style="text-align: center;">金额</th>
+							<th style="text-align: center;">备注</th>
+							<th style="text-align: center;">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="text-align: center;">序号</td>
+							<td style="text-align: center;">简称</td>
+							<td style="text-align: center;">公司名称</td>
+							<td style="text-align: center;">联系人</td>
+							<td style="text-align: center;">手机</td>
+							<td style="text-align: center;">电话</td>
+							<td style="text-align: center;">邮箱</td>
+							<td style="text-align: center;">地区</td>
+							
+							<td style="text-align: center;"><a href="javascript:void(0);">修改</a>&nbsp;<a href="javascript:void(0);">删除</a></td>
+						</tr>
+					</tbody>
+				</table>
+                  </div>
+                </div>
+              </div>
+             </div>
+		
+		
+	</body>
+	<script>
+		$(function(){
+			$("#xjiancgd").click(function(){
+				init("xinjiancaigoudan/xzcgd");
+			});
+		});
+		
+		function init(index) {
+			$.ajax({
+				url : "[[@{/dianpu/go}]]",
+				data : {
+					method : index
+				},
+				dataType : "html",
+				success : function(res) {
+					$("#lb").empty();
+					$("#lb").append(res);
+				}
+			});
+		}
+
+		
+	</script>
+</html>

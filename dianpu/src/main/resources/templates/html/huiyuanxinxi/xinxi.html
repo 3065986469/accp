@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+
+	</style>
+
+	<body>
+		<div class="col-lg-12 mb-4">
+			<div class="card">
+				<form>
+					<div class="card-header">
+						<label for="exampleInputEmail1">会员信息</label>
+
+						<select>
+							<option>全部等级</option>
+						</select>
+
+						<input type="text" maxlength="30" value="" name="keywords" class="inputText keywords" placeholder="查找">
+						<button>查找</button>
+						<button>导入会员</button>
+						<button>导出会员</button>
+
+						<!-- Button trigger modal -->
+						<button type="button" data-toggle="modal" data-target="#huiyuan1">添加会员</button>
+
+						<!-- Modal -->
+						<div class="modal fade" id="huiyuan1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							<div class="modal-dialog modal-lg" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title" id="myModalLabel">添加会员</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									</div>
+									<div class="modal-body">
+										<table style="margin: auto;">
+											<tr>
+												<td align="right">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: red;">*</span>手机</td>
+												<td><input type="text"></td>
+												<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+												<td align="right"><span style="color: red;">*</span>名称</td>
+												<td><input type="text"></td>
+											</tr>
+											<tr>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<td align="right">等级</td>
+												<td>
+													<select style="width: 185px;height: 30px;">
+														<option>请选择等级</option>
+													</select>
+												</td>
+												<td></td>
+												<td align="right">&nbsp;&nbsp;&nbsp;密码</td>
+												<td><input type="text"></td>
+											</tr>
+											<tr>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<td>&nbsp;&nbsp;&nbsp;&nbsp;地址</td>
+												<td colspan="3">
+													<select style="width: 100px;height: 30px;">
+														<option>请选择省份</option>
+													</select>
+													-
+													<select style="width: 100px;height: 30px;">
+														<option>请选择城市</option>
+													</select>
+													-
+													<select style="width: 100px;height: 30px;">
+														<option>请选择地区</option>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<td align="right">街道</td>
+												<td><input type="text"></td>
+											</tr>
+										</table>
+									</div>
+									<div class="modal-footer">
+										<button type="button" data-dismiss="modal">取消</button>
+										<button type="button">确定</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</form>
+				<div class="card-body">
+					<table class="table card-text table table-hover">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>姓名</th>
+								<th>手机</th>
+								<th>等级</th>
+								<th>成交次数</th>
+								<th>成交金额</th>
+								<th>余额</th>
+								<th>积分</th>
+								<th>最近成交</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">1</th>
+								<td>---</td>
+								<td>---</td>
+								<td>---</td>
+								<td>---</td>
+								<td>---</td>
+								<td>---</td>
+								<td>---</td>
+								<td>---</td>
+								<td>
+									<a href="" data-toggle="modal" data-target="#huiyuan2">编辑</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- Modal -->
+					<div class="modal fade" id="huiyuan2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						<div class="modal-dialog modal-lg" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title" id="myModalLabel">编辑会员</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								</div>
+								<div class="modal-body">
+									<table style="margin: auto;">
+										<tr>
+											<td align="right">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: red;">*</span>手机</td>
+											<td><input type="text"></td>
+											<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+											<td align="right"><span style="color: red;">*</span>名称</td>
+											<td><input type="text"></td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td align="right">等级</td>
+											<td>
+												<select style="width: 185px;height: 30px;">
+													<option>请选择等级</option>
+												</select>
+											</td>
+											<td></td>
+											<td align="right">&nbsp;&nbsp;&nbsp;密码</td>
+											<td><input type="text"></td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td>&nbsp;&nbsp;&nbsp;&nbsp;地址</td>
+											<td colspan="3">
+												<select style="width: 100px;height: 30px;">
+													<option>请选择省份</option>
+												</select>
+												-
+												<select style="width: 100px;height: 30px;">
+													<option>请选择城市</option>
+												</select>
+												-
+												<select style="width: 100px;height: 30px;">
+													<option>请选择地区</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td align="right">街道</td>
+											<td><input type="text"></td>
+										</tr>
+									</table>
+								</div>
+								<div class="modal-footer">
+									<button type="button" data-dismiss="modal">取消</button>
+									<button type="button">确定</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

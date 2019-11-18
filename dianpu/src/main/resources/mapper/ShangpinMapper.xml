@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.ShangpinMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Shangpin" >
+    <id column="spid" property="spid" jdbcType="INTEGER" />
+    <result column="spno" property="spno" jdbcType="VARCHAR" />
+    <result column="spname" property="spname" jdbcType="VARCHAR" />
+    <result column="spcount" property="spcount" jdbcType="INTEGER" />
+    <result column="spxiaoshou" property="spxiaoshou" jdbcType="REAL" />
+    <result column="spchengben" property="spchengben" jdbcType="REAL" />
+    <result column="lbid" property="lbid" jdbcType="INTEGER" />
+    <result column="dpid" property="dpid" jdbcType="INTEGER" />
+    <result column="spimg" property="spimg" jdbcType="VARCHAR" />
+    <result column="spmiaoshu" property="spmiaoshu" jdbcType="VARCHAR" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    spid, spno, spname, spcount, spxiaoshou, spchengben, lbid, dpid, spimg, spmiaoshu, 
+    sid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.ShangpinExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shangpin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shangpin
+    where spid = #{spid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shangpin
+    where spid = #{spid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.ShangpinExample" >
+    delete from shangpin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Shangpin" >
+    insert into shangpin (spid, spno, spname, 
+      spcount, spxiaoshou, spchengben, 
+      lbid, dpid, spimg, 
+      spmiaoshu, sid)
+    values (#{spid,jdbcType=INTEGER}, #{spno,jdbcType=VARCHAR}, #{spname,jdbcType=VARCHAR}, 
+      #{spcount,jdbcType=INTEGER}, #{spxiaoshou,jdbcType=REAL}, #{spchengben,jdbcType=REAL}, 
+      #{lbid,jdbcType=INTEGER}, #{dpid,jdbcType=INTEGER}, #{spimg,jdbcType=VARCHAR}, 
+      #{spmiaoshu,jdbcType=VARCHAR}, #{sid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Shangpin" >
+    insert into shangpin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spid != null" >
+        spid,
+      </if>
+      <if test="spno != null" >
+        spno,
+      </if>
+      <if test="spname != null" >
+        spname,
+      </if>
+      <if test="spcount != null" >
+        spcount,
+      </if>
+      <if test="spxiaoshou != null" >
+        spxiaoshou,
+      </if>
+      <if test="spchengben != null" >
+        spchengben,
+      </if>
+      <if test="lbid != null" >
+        lbid,
+      </if>
+      <if test="dpid != null" >
+        dpid,
+      </if>
+      <if test="spimg != null" >
+        spimg,
+      </if>
+      <if test="spmiaoshu != null" >
+        spmiaoshu,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spid != null" >
+        #{spid,jdbcType=INTEGER},
+      </if>
+      <if test="spno != null" >
+        #{spno,jdbcType=VARCHAR},
+      </if>
+      <if test="spname != null" >
+        #{spname,jdbcType=VARCHAR},
+      </if>
+      <if test="spcount != null" >
+        #{spcount,jdbcType=INTEGER},
+      </if>
+      <if test="spxiaoshou != null" >
+        #{spxiaoshou,jdbcType=REAL},
+      </if>
+      <if test="spchengben != null" >
+        #{spchengben,jdbcType=REAL},
+      </if>
+      <if test="lbid != null" >
+        #{lbid,jdbcType=INTEGER},
+      </if>
+      <if test="dpid != null" >
+        #{dpid,jdbcType=INTEGER},
+      </if>
+      <if test="spimg != null" >
+        #{spimg,jdbcType=VARCHAR},
+      </if>
+      <if test="spmiaoshu != null" >
+        #{spmiaoshu,jdbcType=VARCHAR},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.ShangpinExample" resultType="java.lang.Integer" >
+    select count(*) from shangpin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shangpin
+    <set >
+      <if test="record.spid != null" >
+        spid = #{record.spid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spno != null" >
+        spno = #{record.spno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spname != null" >
+        spname = #{record.spname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spcount != null" >
+        spcount = #{record.spcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.spxiaoshou != null" >
+        spxiaoshou = #{record.spxiaoshou,jdbcType=REAL},
+      </if>
+      <if test="record.spchengben != null" >
+        spchengben = #{record.spchengben,jdbcType=REAL},
+      </if>
+      <if test="record.lbid != null" >
+        lbid = #{record.lbid,jdbcType=INTEGER},
+      </if>
+      <if test="record.dpid != null" >
+        dpid = #{record.dpid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spimg != null" >
+        spimg = #{record.spimg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spmiaoshu != null" >
+        spmiaoshu = #{record.spmiaoshu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shangpin
+    set spid = #{record.spid,jdbcType=INTEGER},
+      spno = #{record.spno,jdbcType=VARCHAR},
+      spname = #{record.spname,jdbcType=VARCHAR},
+      spcount = #{record.spcount,jdbcType=INTEGER},
+      spxiaoshou = #{record.spxiaoshou,jdbcType=REAL},
+      spchengben = #{record.spchengben,jdbcType=REAL},
+      lbid = #{record.lbid,jdbcType=INTEGER},
+      dpid = #{record.dpid,jdbcType=INTEGER},
+      spimg = #{record.spimg,jdbcType=VARCHAR},
+      spmiaoshu = #{record.spmiaoshu,jdbcType=VARCHAR},
+      sid = #{record.sid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Shangpin" >
+    update shangpin
+    <set >
+      <if test="spno != null" >
+        spno = #{spno,jdbcType=VARCHAR},
+      </if>
+      <if test="spname != null" >
+        spname = #{spname,jdbcType=VARCHAR},
+      </if>
+      <if test="spcount != null" >
+        spcount = #{spcount,jdbcType=INTEGER},
+      </if>
+      <if test="spxiaoshou != null" >
+        spxiaoshou = #{spxiaoshou,jdbcType=REAL},
+      </if>
+      <if test="spchengben != null" >
+        spchengben = #{spchengben,jdbcType=REAL},
+      </if>
+      <if test="lbid != null" >
+        lbid = #{lbid,jdbcType=INTEGER},
+      </if>
+      <if test="dpid != null" >
+        dpid = #{dpid,jdbcType=INTEGER},
+      </if>
+      <if test="spimg != null" >
+        spimg = #{spimg,jdbcType=VARCHAR},
+      </if>
+      <if test="spmiaoshu != null" >
+        spmiaoshu = #{spmiaoshu,jdbcType=VARCHAR},
+      </if>
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where spid = #{spid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Shangpin" >
+    update shangpin
+    set spno = #{spno,jdbcType=VARCHAR},
+      spname = #{spname,jdbcType=VARCHAR},
+      spcount = #{spcount,jdbcType=INTEGER},
+      spxiaoshou = #{spxiaoshou,jdbcType=REAL},
+      spchengben = #{spchengben,jdbcType=REAL},
+      lbid = #{lbid,jdbcType=INTEGER},
+      dpid = #{dpid,jdbcType=INTEGER},
+      spimg = #{spimg,jdbcType=VARCHAR},
+      spmiaoshu = #{spmiaoshu,jdbcType=VARCHAR},
+      sid = #{sid,jdbcType=INTEGER}
+    where spid = #{spid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.CaigouMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Caigou" >
+    <id column="cgid" property="cgid" jdbcType="INTEGER" />
+    <result column="cgdate" property="cgdate" jdbcType="DATE" />
+    <result column="gysid" property="gysid" jdbcType="INTEGER" />
+    <result column="ygid" property="ygid" jdbcType="INTEGER" />
+    <result column="cgcount" property="cgcount" jdbcType="INTEGER" />
+    <result column="cgprice" property="cgprice" jdbcType="REAL" />
+    <result column="dpid" property="dpid" jdbcType="INTEGER" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cgid, cgdate, gysid, ygid, cgcount, cgprice, dpid, sid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CaigouExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from caigou
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from caigou
+    where cgid = #{cgid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from caigou
+    where cgid = #{cgid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.CaigouExample" >
+    delete from caigou
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Caigou" >
+    insert into caigou (cgid, cgdate, gysid, 
+      ygid, cgcount, cgprice, 
+      dpid, sid)
+    values (#{cgid,jdbcType=INTEGER}, #{cgdate,jdbcType=DATE}, #{gysid,jdbcType=INTEGER}, 
+      #{ygid,jdbcType=INTEGER}, #{cgcount,jdbcType=INTEGER}, #{cgprice,jdbcType=REAL}, 
+      #{dpid,jdbcType=INTEGER}, #{sid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Caigou" >
+    insert into caigou
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cgid != null" >
+        cgid,
+      </if>
+      <if test="cgdate != null" >
+        cgdate,
+      </if>
+      <if test="gysid != null" >
+        gysid,
+      </if>
+      <if test="ygid != null" >
+        ygid,
+      </if>
+      <if test="cgcount != null" >
+        cgcount,
+      </if>
+      <if test="cgprice != null" >
+        cgprice,
+      </if>
+      <if test="dpid != null" >
+        dpid,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cgid != null" >
+        #{cgid,jdbcType=INTEGER},
+      </if>
+      <if test="cgdate != null" >
+        #{cgdate,jdbcType=DATE},
+      </if>
+      <if test="gysid != null" >
+        #{gysid,jdbcType=INTEGER},
+      </if>
+      <if test="ygid != null" >
+        #{ygid,jdbcType=INTEGER},
+      </if>
+      <if test="cgcount != null" >
+        #{cgcount,jdbcType=INTEGER},
+      </if>
+      <if test="cgprice != null" >
+        #{cgprice,jdbcType=REAL},
+      </if>
+      <if test="dpid != null" >
+        #{dpid,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.CaigouExample" resultType="java.lang.Integer" >
+    select count(*) from caigou
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update caigou
+    <set >
+      <if test="record.cgid != null" >
+        cgid = #{record.cgid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cgdate != null" >
+        cgdate = #{record.cgdate,jdbcType=DATE},
+      </if>
+      <if test="record.gysid != null" >
+        gysid = #{record.gysid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ygid != null" >
+        ygid = #{record.ygid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cgcount != null" >
+        cgcount = #{record.cgcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.cgprice != null" >
+        cgprice = #{record.cgprice,jdbcType=REAL},
+      </if>
+      <if test="record.dpid != null" >
+        dpid = #{record.dpid,jdbcType=INTEGER},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update caigou
+    set cgid = #{record.cgid,jdbcType=INTEGER},
+      cgdate = #{record.cgdate,jdbcType=DATE},
+      gysid = #{record.gysid,jdbcType=INTEGER},
+      ygid = #{record.ygid,jdbcType=INTEGER},
+      cgcount = #{record.cgcount,jdbcType=INTEGER},
+      cgprice = #{record.cgprice,jdbcType=REAL},
+      dpid = #{record.dpid,jdbcType=INTEGER},
+      sid = #{record.sid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Caigou" >
+    update caigou
+    <set >
+      <if test="cgdate != null" >
+        cgdate = #{cgdate,jdbcType=DATE},
+      </if>
+      <if test="gysid != null" >
+        gysid = #{gysid,jdbcType=INTEGER},
+      </if>
+      <if test="ygid != null" >
+        ygid = #{ygid,jdbcType=INTEGER},
+      </if>
+      <if test="cgcount != null" >
+        cgcount = #{cgcount,jdbcType=INTEGER},
+      </if>
+      <if test="cgprice != null" >
+        cgprice = #{cgprice,jdbcType=REAL},
+      </if>
+      <if test="dpid != null" >
+        dpid = #{dpid,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cgid = #{cgid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Caigou" >
+    update caigou
+    set cgdate = #{cgdate,jdbcType=DATE},
+      gysid = #{gysid,jdbcType=INTEGER},
+      ygid = #{ygid,jdbcType=INTEGER},
+      cgcount = #{cgcount,jdbcType=INTEGER},
+      cgprice = #{cgprice,jdbcType=REAL},
+      dpid = #{dpid,jdbcType=INTEGER},
+      sid = #{sid,jdbcType=INTEGER}
+    where cgid = #{cgid,jdbcType=INTEGER}
+  </update>
+</mapper>

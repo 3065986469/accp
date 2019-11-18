@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+		
+		
+	</head>
+	<style>
+		
+	</style>
+	<body>
+		<div class="container">
+			<div class="col-lg-12 mb-5">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="h6 text-uppercase mb-0">商品类别 <span class="col-md-2" style="float: right;">
+					<a href="#tjym" class="btn btn-success " data-toggle="modal" id="tjlb">添加类别</a></span></h3>
+                  </div>
+                  <div class="card-body">
+                    <table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th style="text-align: center;">序号</th>
+							<th style="text-align: center;">名称</th>
+							<th style="text-align: center;">操作</th>
+						</tr>
+					</thead>
+					<tbody id="lbtr">
+						
+					</tbody>
+				</table>
+                  </div>
+                </div>
+              </div>
+			
+			
+			<div id="tjym" class="modal fade bs-example-modal-sm">
+					<div class="modal-dialog modal-sm">
+						  <div class="modal-content">
+						<div class="modal-header">
+							
+							<h3>添加类别</h3>
+							<button class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							名称<input type="text" id="lbname"/><input type="hidden" id="lbid"/>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-default" data-dismiss="modal">取消</button>
+							<button class="btn btn-success"  id="qd">确定</button>
+						</div>
+					</div>
+					</div>
+				</div>
+			
+			<script type="text/javascript">
+			function initlb(){
+					$.ajax({
+						url:"[[@{/shangping/cxleibie}]]",
+						type:"get",
+						data:{},
+						dataType:"json",
+						success:function(res){
+							$("#lbtr").html("");
+							$.each(res,function(i,obj){
+								var $lb=`<tr>
+									<td style="text-align: center;">${i+1}</td>
+									<td style="text-align: center;">${obj.lbname}</td>
+									<td style="text-align: center;"><a href="#tjym" data-toggle="modal" onclick="xglb(${obj.lbid})">修改</a>&nbsp;<a href="javascript:void(0);" onclick="sc(${obj.lbid})">删除</a></td>
+								</tr>`;
+								$("#lbtr").append($lb);
+							});
+						}
+					});
+				}
+				$(function(){
+					
+					
+					initlb();
+					$("#qd").click(function(){
+						//alert();
+						if($("#lbid").val()!=null&&$("#lbid").val()!=""){
+							$.ajax({
+								url:"[[@{/shangping/updatelb}]]",
+								type:"get",
+								data:{lbid:$("#lbid").val(),lbname:$("#lbname").val(),sid:1},
+								dataType:"json",
+								success:function(res){
+									alert(res);
+									init();
+									$("#tjym").model("hide")
+								}
+							});
+							
+							
+						}else{
+							$.ajax({
+								url:"[[@{/shangping/insertlb}]]",
+								type:"get",
+								data:{lbid:0,lbname:$("#lbname").val(),sid:1},
+								dataType:"json",
+								success:function(res){
+									alert(res);
+									$("#tjym").model("hide");
+									initlb();
+								}
+							});
+							
+						}
+						
+						$("#lbid").val("");
+						$("#lbname").val("");
+					});
+					
+					
+					
+				});
+				function xglb(obj){
+					$.ajax({
+						url:"[[@{/shangping/querykey}]]",
+						type:"get",
+						data:{lbid:obj},
+						dataType:"json",
+						success:function(res){
+							$("#lbid").val(res.lbid);
+							$("#lbname").val(res.lbname);
+						}
+					});
+				}
+				
+				function sc(obj){
+					$.ajax({
+						url:"[[@{/shangping/deleteleibie}]]",
+						type:"get",
+						data:{lbid:obj},
+						dataType:"json",
+						success:function(res){
+							//alert(res);
+							if(res=="1"){
+								alert("删除成功！！");
+							}
+							initlb();
+						}
+					});
+				}
+				
+			</script>
+			<!--<div class="row col-md-12 " style="border: 1px solid;">
+				<h3 class="col-md-2">商品类别</h3> <span class="col-md-2" style="margin-left: 650px;">
+					<a href="#tjym" class="btn btn-success " data-toggle="modal">添加类别</a>
+				</span>
+			</div>
+			<div class="row col-md-12">
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th style="text-align: center;">序号</th>
+							<th style="text-align: center;">名称</th>
+							<th style="text-align: center;">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="text-align: center;">1</td>
+							<td style="text-align: center;">名称</td>
+							<td style="text-align: center;"><a href="javascript:void(0);">修改</a>&nbsp;<a href="javascript:void(0);">删除</a></td>
+						</tr>
+					</tbody>
+				</table>
+				<div id="tjym" class="modal fade bs-example-modal-sm">
+					<div class="modal-dialog modal-sm">
+						  <div class="modal-content">
+						<div class="modal-header">
+							
+							<h3>添加类别</h3>
+							<button class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							名称<input type="text" id="lbname"/>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-default" data-dismiss="modal">取消</button>
+							<button class="btn btn-success" id="qd">确定</button>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>-->
+			
+		</div>
+		
+	</body>
+</html>

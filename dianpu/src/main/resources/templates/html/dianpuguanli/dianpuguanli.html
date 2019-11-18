@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div class="card">
+			<div class="card-header">
+				<h4 class="text-uppercase mb-0">门店列表<button style="float: right;" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">添加店铺</button></h4>
+			</div>
+			<div class="card-body">
+				<table class="table card-text">
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>账号</th>
+							<th>店名</th>
+							<th>员工</th>
+							<th>联系人</th>
+							<th>手机</th>
+							<th>地址</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td>Mark</td>
+							<td>Otto</td>
+							<td>@mdo</td>
+							<td>@mdo</td>
+							<td>@mdo</td>
+							<td>@mdo</td>
+							<td>@mdo</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		
+		<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myModalLabel">添加店铺</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+					</div>
+					<div class="modal-body">
+							<table style="margin: auto;">
+								<tr>
+									<td>&nbsp;&nbsp;&nbsp;&nbsp;店铺名称</td>
+									<td><input type="text"></td>
+									<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+									<td>联系人</td>
+									<td><input type="text"></td>
+								</tr>
+								<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+								<tr>
+									<td>联系人电话</td>
+									<td><input type="text"></td>
+									<td></td>
+									<td>&nbsp;&nbsp;&nbsp;地址</td>
+									<td><input type="text"></td>
+								</tr>
+								
+							</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary">保存</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			$.ajax({
+				url:"[[@{/dianpu/queryAllDianPu}]]",
+				success:function(res){
+					
+				}
+			});
+		</script>
+		
+		
+		
+		
+		
+	</body>
+
+</html>

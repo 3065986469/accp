@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<style>
+		
+	</style>
+	<body>
+		<div class="container">
+			<div class="row col-md-12" >
+				<h4 class="col-md-2">商品上传</h4> 
+			</div>
+			
+			<div class="row col-md-12" >
+				<div class="col-md-5">
+					<div class="col-md-12" style="border: 1px solid;height: 300px;">
+						
+					</div>
+					<a class="col-md-2"><</a><a class="col-md-2" style="float: right;">></a>
+				</div>
+				<div class="row col-md-6" style="border: 1px solid;margin-left: 50px;">
+					<div class="col-md-12">
+						<span style="color: red;" class="col-md-3">*商品货号</span><input type="text" class="col-md-3"/>
+						<span  class="col-md-3">商品品牌</span><input type="text" class="col-md-3"/>
+					</div><div class="col-md-12">&nbsp;</div>
+					<div class="col-md-12">
+						<span style="color: red;" class="col-md-3">*商品名称</span><input type="text" class="col-md-9"/>
+					</div><div class="col-md-12">&nbsp;</div>
+					<div class="col-md-12">
+						<span style="color: red;" class="col-md-3">*吊牌价格</span><input type="text" class="col-md-3"/>
+						<span style="color: red;" class="col-md-3">*成本价格</span><input type="text" class="col-md-3"/>
+					</div><div class="col-md-12">&nbsp;</div>
+					<div class="col-md-12">
+						<span style="color: red;" class="col-md-3">*商品类别</span><select class="col-md-3"><option></option></select>
+						<span style="color: red;" class="col-md-3">*店&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;铺</span><select class="col-md-3"><option></option></select>
+					</div><div class="col-md-12">&nbsp;</div>
+					<div class="col-md-12">
+						<span style="color: red;" class="col-md-3">*商品颜色</span>
+						<table class="table table-bordered col-md-12">
+							<tr class="row">
+								<td class="col-md-3">scsacacac</td><td class="col-md-3">sccsacasac</td><td class="col-md-3">sccsacac</td><td class="col-md-3">scacsacc</td>
+							</tr>
+							<tr class="row">
+								<td class="col-md-3">scsacacac</td><td class="col-md-3">sccsacasac</td><td class="col-md-3">sccsacac</td><td class="col-md-3">scacsacc</td>
+							</tr>
+						</table>
+						<a class="col-md-3 col-md-offset-8" style="color: green;">+添加颜色</a>
+					</div>
+					<div class="col-md-12" style="display: none;">
+						<table class="table-bordered col-md-12">
+							
+								<tr class="row ">
+									<th class="col-md-6" style="text-align: center;">颜色名称</th>
+									<th class="col-md-6" style="text-align: center;">颜色图片</th>
+								</tr>
+							
+							
+								<tr class="row">
+									<td class="col-md-6" style="text-align: center;">颜色名称</td>
+									<td class="col-md-6" style="text-align: center;">颜色图片</td>
+								</tr>
+							
+						</table>
+					</div><div class="col-md-12">&nbsp;</div>
+					<div class=" col-md-12" >
+						<span style="color: red;" class="col-md-3">*商品尺码</span><div class="col-md-12">
+						<span class="col-md-3"><input type="checkbox" />均码</span><span class="col-md-3"><input type="checkbox" />均码</span><span class="col-md-3"><input type="checkbox" />均码</span><span class="col-md-3"><input type="checkbox" />均码</span>
+						<span class="col-md-3"><input type="checkbox" />均码</span><span class="col-md-3"><input type="checkbox" />均码</span><span class="col-md-3"><input type="checkbox" />均码</span>
+						<span class="col-md-3"><input type="checkbox" />均码</span></div>
+						<a class="col-md-3 col-md-offset-8" style="color: green;">+添加尺码</a>
+					</div><div class="col-md-12">&nbsp;</div>
+					<div class=" col-md-12" >
+						<span style="color: red;" class="col-md-3">*商品库存</span><input type="text" readonly="readonly" class="col-md-3"/><span class="col-md-6">请勿随意修改库存</span>
+						<table class="table-bordered col-md-12">
+							<tr class="row">
+								<th class="col-md-4" style="text-align: center;">xas</th>
+								<th class="col-md-4" style="text-align: center;"> xas</th>
+								<th class="col-md-4" style="text-align: center;">xas</th>
+								
+							</tr>
+						</table>
+					</div>
+					
+				</div>
+				<div class=" col-md-12" >
+				  <div id="editor">
+			        <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+			    </div>
+			</div>
+			<div class="col-md-12">
+			<button class="btn col-md-2  btn-success" style="float: right;">发布商品</button>
+			<button class="col-md-2  btn btn-gray-500" style="float: right;">取消发布</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+    <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
+	    <script type="text/javascript">
+	        var E = window.wangEditor
+	        var editor = new E('#editor')
+	        // 或者 var editor = new E( document.getElementById('editor') )
+	        editor.create()
+	    </script>
+					
+				</div>
+			</div>
+	</body>
+</html>

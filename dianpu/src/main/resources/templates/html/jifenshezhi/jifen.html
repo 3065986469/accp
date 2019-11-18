@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div class="col-lg-12 mb-4">
+			<div class="card ">
+				<form>
+					<div class="card-header ">
+						<label for="exampleInputEmail1 ">积分设置</label>
+					</div>
+				</form>
+				<div class="card-body"style="margin: 0px 0px 0px 1000px;">
+					<div class="btn-group " role="group " aria-label="..." style="border: 1px solid green;">
+					  <button type="button " style="border: none; width: 50px; height: 30px;" id="button1">开启</button>
+					  <button type="button " style="border: none; width: 50px; height: 30px;" id="button2">关闭</button>
+					</div>
+				</div>
+					<div style="margin: 50px 20px 30px 250px; height: 150px; width: 500px; border: 1px solid pink; ">
+						<div class="title " style="width: 70px; height: 50px;margin: 25px 20px 0px 40px; ">积分抵扣</div>
+							<div style="height: 50px;margin: 0px 0px 0px 40px; ">
+								<span>使用积分</span>
+								<input type="text " maxlength="20 " value="100 " class="text-center "id="text">
+								<span>可抵扣</span><span style="color: red; ">1.00</span><span>元</span>
+							</div>
+						</div>
+							<div style="width: 80px; height: 50px; margin: 0px 0px 50px 680px; ">
+								<button style="width: 70px; height: 40px;border:none;color: white;background-color: pink;border-radius:5px; ">确定</button>
+							</div>
+					</div>
+			</div>			
+		</div>
+		<script>
+			$(function(){
+				if(true){
+					$("#button1").css("background-color","#18CE0F").css("color","white");
+					$("#button2").css("background-color","white").css("color","white");
+				}
+				
+				
+				$("#button1").click(function(){
+					$("#button1").css("background-color","#18CE0F").css("color","white");
+					$("#button2").css("background-color","white").css("color","white");
+					$("#text").css("pointer-events","auto");
+				})
+				
+				
+				$("#button2").click(function(){
+					$("#button1").css("background-color","white").css("color","white");
+					$("#button2").css("background-color","gray").css("color","white");
+					$("#text").css("pointer-events","none");
+				})
+
+			})
+		</script>
+	</body>
+</html>

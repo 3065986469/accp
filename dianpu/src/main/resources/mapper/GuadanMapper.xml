@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.GuadanMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Guadan" >
+    <id column="gdid" property="gdid" jdbcType="INTEGER" />
+    <result column="ddno" property="ddno" jdbcType="VARCHAR" />
+    <result column="spid" property="spid" jdbcType="VARCHAR" />
+    <result column="spnum" property="spnum" jdbcType="INTEGER" />
+    <result column="spprice" property="spprice" jdbcType="REAL" />
+    <result column="dpid" property="dpid" jdbcType="INTEGER" />
+    <result column="hyid" property="hyid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    gdid, ddno, spid, spnum, spprice, dpid, hyid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.GuadanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from guadan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from guadan
+    where gdid = #{gdid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from guadan
+    where gdid = #{gdid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.GuadanExample" >
+    delete from guadan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Guadan" >
+    insert into guadan (gdid, ddno, spid, 
+      spnum, spprice, dpid, 
+      hyid)
+    values (#{gdid,jdbcType=INTEGER}, #{ddno,jdbcType=VARCHAR}, #{spid,jdbcType=VARCHAR}, 
+      #{spnum,jdbcType=INTEGER}, #{spprice,jdbcType=REAL}, #{dpid,jdbcType=INTEGER}, 
+      #{hyid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Guadan" >
+    insert into guadan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gdid != null" >
+        gdid,
+      </if>
+      <if test="ddno != null" >
+        ddno,
+      </if>
+      <if test="spid != null" >
+        spid,
+      </if>
+      <if test="spnum != null" >
+        spnum,
+      </if>
+      <if test="spprice != null" >
+        spprice,
+      </if>
+      <if test="dpid != null" >
+        dpid,
+      </if>
+      <if test="hyid != null" >
+        hyid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gdid != null" >
+        #{gdid,jdbcType=INTEGER},
+      </if>
+      <if test="ddno != null" >
+        #{ddno,jdbcType=VARCHAR},
+      </if>
+      <if test="spid != null" >
+        #{spid,jdbcType=VARCHAR},
+      </if>
+      <if test="spnum != null" >
+        #{spnum,jdbcType=INTEGER},
+      </if>
+      <if test="spprice != null" >
+        #{spprice,jdbcType=REAL},
+      </if>
+      <if test="dpid != null" >
+        #{dpid,jdbcType=INTEGER},
+      </if>
+      <if test="hyid != null" >
+        #{hyid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.GuadanExample" resultType="java.lang.Integer" >
+    select count(*) from guadan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update guadan
+    <set >
+      <if test="record.gdid != null" >
+        gdid = #{record.gdid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ddno != null" >
+        ddno = #{record.ddno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spid != null" >
+        spid = #{record.spid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spnum != null" >
+        spnum = #{record.spnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.spprice != null" >
+        spprice = #{record.spprice,jdbcType=REAL},
+      </if>
+      <if test="record.dpid != null" >
+        dpid = #{record.dpid,jdbcType=INTEGER},
+      </if>
+      <if test="record.hyid != null" >
+        hyid = #{record.hyid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update guadan
+    set gdid = #{record.gdid,jdbcType=INTEGER},
+      ddno = #{record.ddno,jdbcType=VARCHAR},
+      spid = #{record.spid,jdbcType=VARCHAR},
+      spnum = #{record.spnum,jdbcType=INTEGER},
+      spprice = #{record.spprice,jdbcType=REAL},
+      dpid = #{record.dpid,jdbcType=INTEGER},
+      hyid = #{record.hyid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Guadan" >
+    update guadan
+    <set >
+      <if test="ddno != null" >
+        ddno = #{ddno,jdbcType=VARCHAR},
+      </if>
+      <if test="spid != null" >
+        spid = #{spid,jdbcType=VARCHAR},
+      </if>
+      <if test="spnum != null" >
+        spnum = #{spnum,jdbcType=INTEGER},
+      </if>
+      <if test="spprice != null" >
+        spprice = #{spprice,jdbcType=REAL},
+      </if>
+      <if test="dpid != null" >
+        dpid = #{dpid,jdbcType=INTEGER},
+      </if>
+      <if test="hyid != null" >
+        hyid = #{hyid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where gdid = #{gdid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Guadan" >
+    update guadan
+    set ddno = #{ddno,jdbcType=VARCHAR},
+      spid = #{spid,jdbcType=VARCHAR},
+      spnum = #{spnum,jdbcType=INTEGER},
+      spprice = #{spprice,jdbcType=REAL},
+      dpid = #{dpid,jdbcType=INTEGER},
+      hyid = #{hyid,jdbcType=INTEGER}
+    where gdid = #{gdid,jdbcType=INTEGER}
+  </update>
+</mapper>

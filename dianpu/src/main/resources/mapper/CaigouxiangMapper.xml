@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.CaigouxiangMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Caigouxiang" >
+    <id column="cgxid" property="cgxid" jdbcType="INTEGER" />
+    <result column="cgid" property="cgid" jdbcType="INTEGER" />
+    <result column="spid" property="spid" jdbcType="INTEGER" />
+    <result column="spno" property="spno" jdbcType="VARCHAR" />
+    <result column="spname" property="spname" jdbcType="VARCHAR" />
+    <result column="ccid" property="ccid" jdbcType="INTEGER" />
+    <result column="ysid" property="ysid" jdbcType="INTEGER" />
+    <result column="cgxchengben" property="cgxchengben" jdbcType="REAL" />
+    <result column="cgxcount" property="cgxcount" jdbcType="INTEGER" />
+    <result column="cgxprice" property="cgxprice" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cgxid, cgid, spid, spno, spname, ccid, ysid, cgxchengben, cgxcount, cgxprice
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CaigouxiangExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from caigouxiang
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from caigouxiang
+    where cgxid = #{cgxid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from caigouxiang
+    where cgxid = #{cgxid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.CaigouxiangExample" >
+    delete from caigouxiang
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Caigouxiang" >
+    insert into caigouxiang (cgxid, cgid, spid, 
+      spno, spname, ccid, 
+      ysid, cgxchengben, cgxcount, 
+      cgxprice)
+    values (#{cgxid,jdbcType=INTEGER}, #{cgid,jdbcType=INTEGER}, #{spid,jdbcType=INTEGER}, 
+      #{spno,jdbcType=VARCHAR}, #{spname,jdbcType=VARCHAR}, #{ccid,jdbcType=INTEGER}, 
+      #{ysid,jdbcType=INTEGER}, #{cgxchengben,jdbcType=REAL}, #{cgxcount,jdbcType=INTEGER}, 
+      #{cgxprice,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Caigouxiang" >
+    insert into caigouxiang
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cgxid != null" >
+        cgxid,
+      </if>
+      <if test="cgid != null" >
+        cgid,
+      </if>
+      <if test="spid != null" >
+        spid,
+      </if>
+      <if test="spno != null" >
+        spno,
+      </if>
+      <if test="spname != null" >
+        spname,
+      </if>
+      <if test="ccid != null" >
+        ccid,
+      </if>
+      <if test="ysid != null" >
+        ysid,
+      </if>
+      <if test="cgxchengben != null" >
+        cgxchengben,
+      </if>
+      <if test="cgxcount != null" >
+        cgxcount,
+      </if>
+      <if test="cgxprice != null" >
+        cgxprice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cgxid != null" >
+        #{cgxid,jdbcType=INTEGER},
+      </if>
+      <if test="cgid != null" >
+        #{cgid,jdbcType=INTEGER},
+      </if>
+      <if test="spid != null" >
+        #{spid,jdbcType=INTEGER},
+      </if>
+      <if test="spno != null" >
+        #{spno,jdbcType=VARCHAR},
+      </if>
+      <if test="spname != null" >
+        #{spname,jdbcType=VARCHAR},
+      </if>
+      <if test="ccid != null" >
+        #{ccid,jdbcType=INTEGER},
+      </if>
+      <if test="ysid != null" >
+        #{ysid,jdbcType=INTEGER},
+      </if>
+      <if test="cgxchengben != null" >
+        #{cgxchengben,jdbcType=REAL},
+      </if>
+      <if test="cgxcount != null" >
+        #{cgxcount,jdbcType=INTEGER},
+      </if>
+      <if test="cgxprice != null" >
+        #{cgxprice,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.CaigouxiangExample" resultType="java.lang.Integer" >
+    select count(*) from caigouxiang
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update caigouxiang
+    <set >
+      <if test="record.cgxid != null" >
+        cgxid = #{record.cgxid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cgid != null" >
+        cgid = #{record.cgid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spid != null" >
+        spid = #{record.spid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spno != null" >
+        spno = #{record.spno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spname != null" >
+        spname = #{record.spname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ccid != null" >
+        ccid = #{record.ccid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ysid != null" >
+        ysid = #{record.ysid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cgxchengben != null" >
+        cgxchengben = #{record.cgxchengben,jdbcType=REAL},
+      </if>
+      <if test="record.cgxcount != null" >
+        cgxcount = #{record.cgxcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.cgxprice != null" >
+        cgxprice = #{record.cgxprice,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update caigouxiang
+    set cgxid = #{record.cgxid,jdbcType=INTEGER},
+      cgid = #{record.cgid,jdbcType=INTEGER},
+      spid = #{record.spid,jdbcType=INTEGER},
+      spno = #{record.spno,jdbcType=VARCHAR},
+      spname = #{record.spname,jdbcType=VARCHAR},
+      ccid = #{record.ccid,jdbcType=INTEGER},
+      ysid = #{record.ysid,jdbcType=INTEGER},
+      cgxchengben = #{record.cgxchengben,jdbcType=REAL},
+      cgxcount = #{record.cgxcount,jdbcType=INTEGER},
+      cgxprice = #{record.cgxprice,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Caigouxiang" >
+    update caigouxiang
+    <set >
+      <if test="cgid != null" >
+        cgid = #{cgid,jdbcType=INTEGER},
+      </if>
+      <if test="spid != null" >
+        spid = #{spid,jdbcType=INTEGER},
+      </if>
+      <if test="spno != null" >
+        spno = #{spno,jdbcType=VARCHAR},
+      </if>
+      <if test="spname != null" >
+        spname = #{spname,jdbcType=VARCHAR},
+      </if>
+      <if test="ccid != null" >
+        ccid = #{ccid,jdbcType=INTEGER},
+      </if>
+      <if test="ysid != null" >
+        ysid = #{ysid,jdbcType=INTEGER},
+      </if>
+      <if test="cgxchengben != null" >
+        cgxchengben = #{cgxchengben,jdbcType=REAL},
+      </if>
+      <if test="cgxcount != null" >
+        cgxcount = #{cgxcount,jdbcType=INTEGER},
+      </if>
+      <if test="cgxprice != null" >
+        cgxprice = #{cgxprice,jdbcType=REAL},
+      </if>
+    </set>
+    where cgxid = #{cgxid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Caigouxiang" >
+    update caigouxiang
+    set cgid = #{cgid,jdbcType=INTEGER},
+      spid = #{spid,jdbcType=INTEGER},
+      spno = #{spno,jdbcType=VARCHAR},
+      spname = #{spname,jdbcType=VARCHAR},
+      ccid = #{ccid,jdbcType=INTEGER},
+      ysid = #{ysid,jdbcType=INTEGER},
+      cgxchengben = #{cgxchengben,jdbcType=REAL},
+      cgxcount = #{cgxcount,jdbcType=INTEGER},
+      cgxprice = #{cgxprice,jdbcType=REAL}
+    where cgxid = #{cgxid,jdbcType=INTEGER}
+  </update>
+</mapper>

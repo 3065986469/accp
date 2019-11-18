@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.VipdengjiMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Vipdengji" >
+    <id column="djid" property="djid" jdbcType="INTEGER" />
+    <result column="djname" property="djname" jdbcType="VARCHAR" />
+    <result column="djzhekou" property="djzhekou" jdbcType="REAL" />
+    <result column="djxiaofei" property="djxiaofei" jdbcType="INTEGER" />
+    <result column="dxzidong" property="dxzidong" jdbcType="INTEGER" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    djid, djname, djzhekou, djxiaofei, dxzidong, sid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.VipdengjiExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from vipdengji
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from vipdengji
+    where djid = #{djid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from vipdengji
+    where djid = #{djid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.VipdengjiExample" >
+    delete from vipdengji
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Vipdengji" >
+    insert into vipdengji (djid, djname, djzhekou, 
+      djxiaofei, dxzidong, sid
+      )
+    values (#{djid,jdbcType=INTEGER}, #{djname,jdbcType=VARCHAR}, #{djzhekou,jdbcType=REAL}, 
+      #{djxiaofei,jdbcType=INTEGER}, #{dxzidong,jdbcType=INTEGER}, #{sid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Vipdengji" >
+    insert into vipdengji
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="djid != null" >
+        djid,
+      </if>
+      <if test="djname != null" >
+        djname,
+      </if>
+      <if test="djzhekou != null" >
+        djzhekou,
+      </if>
+      <if test="djxiaofei != null" >
+        djxiaofei,
+      </if>
+      <if test="dxzidong != null" >
+        dxzidong,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="djid != null" >
+        #{djid,jdbcType=INTEGER},
+      </if>
+      <if test="djname != null" >
+        #{djname,jdbcType=VARCHAR},
+      </if>
+      <if test="djzhekou != null" >
+        #{djzhekou,jdbcType=REAL},
+      </if>
+      <if test="djxiaofei != null" >
+        #{djxiaofei,jdbcType=INTEGER},
+      </if>
+      <if test="dxzidong != null" >
+        #{dxzidong,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.VipdengjiExample" resultType="java.lang.Integer" >
+    select count(*) from vipdengji
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update vipdengji
+    <set >
+      <if test="record.djid != null" >
+        djid = #{record.djid,jdbcType=INTEGER},
+      </if>
+      <if test="record.djname != null" >
+        djname = #{record.djname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.djzhekou != null" >
+        djzhekou = #{record.djzhekou,jdbcType=REAL},
+      </if>
+      <if test="record.djxiaofei != null" >
+        djxiaofei = #{record.djxiaofei,jdbcType=INTEGER},
+      </if>
+      <if test="record.dxzidong != null" >
+        dxzidong = #{record.dxzidong,jdbcType=INTEGER},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update vipdengji
+    set djid = #{record.djid,jdbcType=INTEGER},
+      djname = #{record.djname,jdbcType=VARCHAR},
+      djzhekou = #{record.djzhekou,jdbcType=REAL},
+      djxiaofei = #{record.djxiaofei,jdbcType=INTEGER},
+      dxzidong = #{record.dxzidong,jdbcType=INTEGER},
+      sid = #{record.sid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Vipdengji" >
+    update vipdengji
+    <set >
+      <if test="djname != null" >
+        djname = #{djname,jdbcType=VARCHAR},
+      </if>
+      <if test="djzhekou != null" >
+        djzhekou = #{djzhekou,jdbcType=REAL},
+      </if>
+      <if test="djxiaofei != null" >
+        djxiaofei = #{djxiaofei,jdbcType=INTEGER},
+      </if>
+      <if test="dxzidong != null" >
+        dxzidong = #{dxzidong,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where djid = #{djid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Vipdengji" >
+    update vipdengji
+    set djname = #{djname,jdbcType=VARCHAR},
+      djzhekou = #{djzhekou,jdbcType=REAL},
+      djxiaofei = #{djxiaofei,jdbcType=INTEGER},
+      dxzidong = #{dxzidong,jdbcType=INTEGER},
+      sid = #{sid,jdbcType=INTEGER}
+    where djid = #{djid,jdbcType=INTEGER}
+  </update>
+</mapper>

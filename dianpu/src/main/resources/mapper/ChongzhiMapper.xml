@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.ChongzhiMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Chongzhi" >
+    <id column="czid" property="czid" jdbcType="INTEGER" />
+    <result column="czdate" property="czdate" jdbcType="DATE" />
+    <result column="czweixin" property="czweixin" jdbcType="VARCHAR" />
+    <result column="czname" property="czname" jdbcType="VARCHAR" />
+    <result column="czphone" property="czphone" jdbcType="VARCHAR" />
+    <result column="czprice" property="czprice" jdbcType="REAL" />
+    <result column="czzengsong" property="czzengsong" jdbcType="INTEGER" />
+    <result column="czbezhu" property="czbezhu" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    czid, czdate, czweixin, czname, czphone, czprice, czzengsong, czbezhu
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.ChongzhiExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from chongzhi
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from chongzhi
+    where czid = #{czid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from chongzhi
+    where czid = #{czid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.ChongzhiExample" >
+    delete from chongzhi
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Chongzhi" >
+    insert into chongzhi (czid, czdate, czweixin, 
+      czname, czphone, czprice, 
+      czzengsong, czbezhu)
+    values (#{czid,jdbcType=INTEGER}, #{czdate,jdbcType=DATE}, #{czweixin,jdbcType=VARCHAR}, 
+      #{czname,jdbcType=VARCHAR}, #{czphone,jdbcType=VARCHAR}, #{czprice,jdbcType=REAL}, 
+      #{czzengsong,jdbcType=INTEGER}, #{czbezhu,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Chongzhi" >
+    insert into chongzhi
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="czid != null" >
+        czid,
+      </if>
+      <if test="czdate != null" >
+        czdate,
+      </if>
+      <if test="czweixin != null" >
+        czweixin,
+      </if>
+      <if test="czname != null" >
+        czname,
+      </if>
+      <if test="czphone != null" >
+        czphone,
+      </if>
+      <if test="czprice != null" >
+        czprice,
+      </if>
+      <if test="czzengsong != null" >
+        czzengsong,
+      </if>
+      <if test="czbezhu != null" >
+        czbezhu,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="czid != null" >
+        #{czid,jdbcType=INTEGER},
+      </if>
+      <if test="czdate != null" >
+        #{czdate,jdbcType=DATE},
+      </if>
+      <if test="czweixin != null" >
+        #{czweixin,jdbcType=VARCHAR},
+      </if>
+      <if test="czname != null" >
+        #{czname,jdbcType=VARCHAR},
+      </if>
+      <if test="czphone != null" >
+        #{czphone,jdbcType=VARCHAR},
+      </if>
+      <if test="czprice != null" >
+        #{czprice,jdbcType=REAL},
+      </if>
+      <if test="czzengsong != null" >
+        #{czzengsong,jdbcType=INTEGER},
+      </if>
+      <if test="czbezhu != null" >
+        #{czbezhu,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.ChongzhiExample" resultType="java.lang.Integer" >
+    select count(*) from chongzhi
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update chongzhi
+    <set >
+      <if test="record.czid != null" >
+        czid = #{record.czid,jdbcType=INTEGER},
+      </if>
+      <if test="record.czdate != null" >
+        czdate = #{record.czdate,jdbcType=DATE},
+      </if>
+      <if test="record.czweixin != null" >
+        czweixin = #{record.czweixin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.czname != null" >
+        czname = #{record.czname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.czphone != null" >
+        czphone = #{record.czphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.czprice != null" >
+        czprice = #{record.czprice,jdbcType=REAL},
+      </if>
+      <if test="record.czzengsong != null" >
+        czzengsong = #{record.czzengsong,jdbcType=INTEGER},
+      </if>
+      <if test="record.czbezhu != null" >
+        czbezhu = #{record.czbezhu,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update chongzhi
+    set czid = #{record.czid,jdbcType=INTEGER},
+      czdate = #{record.czdate,jdbcType=DATE},
+      czweixin = #{record.czweixin,jdbcType=VARCHAR},
+      czname = #{record.czname,jdbcType=VARCHAR},
+      czphone = #{record.czphone,jdbcType=VARCHAR},
+      czprice = #{record.czprice,jdbcType=REAL},
+      czzengsong = #{record.czzengsong,jdbcType=INTEGER},
+      czbezhu = #{record.czbezhu,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Chongzhi" >
+    update chongzhi
+    <set >
+      <if test="czdate != null" >
+        czdate = #{czdate,jdbcType=DATE},
+      </if>
+      <if test="czweixin != null" >
+        czweixin = #{czweixin,jdbcType=VARCHAR},
+      </if>
+      <if test="czname != null" >
+        czname = #{czname,jdbcType=VARCHAR},
+      </if>
+      <if test="czphone != null" >
+        czphone = #{czphone,jdbcType=VARCHAR},
+      </if>
+      <if test="czprice != null" >
+        czprice = #{czprice,jdbcType=REAL},
+      </if>
+      <if test="czzengsong != null" >
+        czzengsong = #{czzengsong,jdbcType=INTEGER},
+      </if>
+      <if test="czbezhu != null" >
+        czbezhu = #{czbezhu,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where czid = #{czid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Chongzhi" >
+    update chongzhi
+    set czdate = #{czdate,jdbcType=DATE},
+      czweixin = #{czweixin,jdbcType=VARCHAR},
+      czname = #{czname,jdbcType=VARCHAR},
+      czphone = #{czphone,jdbcType=VARCHAR},
+      czprice = #{czprice,jdbcType=REAL},
+      czzengsong = #{czzengsong,jdbcType=INTEGER},
+      czbezhu = #{czbezhu,jdbcType=VARCHAR}
+    where czid = #{czid,jdbcType=INTEGER}
+  </update>
+</mapper>
