@@ -23,6 +23,8 @@ public class ShangPin {
 	}
 	
 	
+	
+	
 	@RequestMapping(value="querykey")
 	@ResponseBody
 	public Leibie queryleibie(Integer lbid) {
